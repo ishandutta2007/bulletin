@@ -1,0 +1,44 @@
+\begin{table*}[!h]
+	\caption{Fingerprinting features}
+	\label{table_features}
+	\centering
+    \scalebox{0.9}{
+	\begin{tabular}{|c||l|l|}
+		\hline
+		\textbf{Category} & \textbf{Feature} & \textbf{Description}\\
+		\hline
+        \textbf{Hardware}
+        & Device Pixel Ratio & The ratio of the resolution in physical pixels\\
+        & Physical cores & Estimated number of physical processors\\
+        & Screen Size & Height and width of the screen\\
+        & Sorted Screen & The size ignoring the orientation of the screen\\
+        & SSE2 & Estimate existence of Streaming SIMD Extensions 2 by floating point calculation\\
+        & Touch Enable & Whether touch sensor is enabled or not\\ %md: should 'connect' be 'sensor'? %rui: updated
+		%\hline
+        \textbf{Software} 
+        & Canvas Fingerprint & Image rendered with canvas API\\
+        %& Canvas Fingerprint\cite{canvasfingerprint} & Image rendered with canvas API proposed by Mowery et al.\\
+        & Font & A list of fonts installed in the system\\
+        & HTTP Accept Language & Advertises which languages the client is able to understand\\
+        & HTTP Accept &  Advertises which content types, expressed as MIME types, the client is able to understand \\
+        & HTTP Accept Encoding & Advertises which content encodings, usually compression algorithms, the client is able to understand\\
+        & HTTP Origin & Indicates where a fetch originates from\\
+        & HTTP Connection & Controls whether or not the network connection stays open\\
+        & HTTP Accept Charset & Advertises which character sets the client is able to understand\\
+   		& Plug-in & The list of plug-ins installed in the browser\\
+        & Time Zone & System time zone\\
+        & Local Storage Enable & Local Storage APU exists and is usable\\
+        & Session Storage Enable & Session Storage API exists and is usable\\
+        & Do Not Track & Inform `do not track' to third-party ad provider\\
+        & Java Script User Agent & User Agent with JavaScript\\
+        & HTTP User Agent & User Agent with HTTP header\\
+        & Version-free User Agent & User Agent with version information trimmed\\
+		%\hline
+        \textbf{Network} 
+        & ISP & Internet Service Provider assumed from IP address\\
+        & External IP address & Address used to access the Internet\\
+        & Internal IP address & Address used within the internal network\\
+		\hline
+	\end{tabular}
+    }
+\end{table*}

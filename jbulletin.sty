@@ -1,0 +1,102 @@
+\usepackage[utf8]{inputenc}
+% page layout
+\usepackage[dvipdfm,top=35truemm,bottom=30truemm,left=30truemm,right=30truemm]{geometry}
+% space between lines　
+\renewcommand{\baselinestretch}{1.2}
+% define title font size
+\usepackage{titlesec}
+\titleformat*{\section}{\huge\bfseries} % maybe 24.88pt
+\titleformat*{\subsection}{\Large\bfseries} %  maybe 16~17pt
+% define figure and table name
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+% define reference name
+\renewcommand{\refname}{参考文献}
+% define table of contents name ,etc
+\renewcommand{\contentsname}{目次}
+\renewcommand{\listfigurename}{図目次}
+\renewcommand{\listtablename}{表目次}
+% define figref and tabref shortcut command
+\newcommand\figref[1]{\textbf{図~\ref{#1}}}
+\newcommand\tabref[1]{\textbf{表~\ref{#1}}}
+% for first paragraph indent
+\usepackage{indentfirst}
+
+\usepackage[ipaex]{pxchfon}
+\usepackage{latexsym}
+% for png size
+\usepackage[dvipdfmx]{graphicx}
+% % for checkmark
+\usepackage{amssymb}
+% for !b
+\usepackage{nidanfloat}
+
+% useful packages
+\usepackage{otf}
+\usepackage{fix-cm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algcompatible}
+\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% my macro
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\myfigscale{0.65}
+\def\mywidth{\linewidth}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% source code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\lstset{
+	breaklines=true,
+    tabsize=2,
+    frame=single,
+    extendedchars=true,
+    showstringspaces=false,
+    showspaces=false,
+	numberstyle=\footnotesize,
+	numbersep=9pt,
+	showtabs=false,
+	captionpos=b,
+    backgroundcolor=\color{white},
+	breakatwhitespace=false,
+	commentstyle=\color[rgb]{0,0.6,0},
+    deletekeywords={...},
+	escapeinside={\%*}{*)},
+	keepspaces=true,
+	keywordstyle=\color{blue},
+	morekeywords={*,...},
+	numbers=none,
+	numbersep=5pt,
+	numberstyle=\tiny\color[rgb]{0.5,0.5,0.5},
+	rulecolor=\color{black},
+	stepnumber=1,
+	stringstyle=\color[rgb]{0.58,0,0.82},
+	title=\lstname,
+    basicstyle=\ttfamily,
+}
+% JavaScript
+\lstdefinelanguage{JavaScript}{
+	keywords={try, catch, return, break, switch, case, if, else, while, do, for},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywords={typeof, new, function, var, in, const, let},
+    ndkeywordstyle=\color[rgb]{0, 0.5, 0}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=false,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{gray}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    numbers=left,
+    morestring=[b]',
+    morestring=[b]",
+    basicstyle=\footnotesize\ttfamily
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
