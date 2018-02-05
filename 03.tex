@@ -74,7 +74,14 @@ The process of an observer or attacker uniquely identifying (with a sufficiently
 
 \end{description}
 \subsection{利用法}
-\subsubsection{行動追跡}
+Fingerprintingの利用法として3つ紹介する．
+
+一つは，インターネット広告における利用である．
+インターネット上でのユーザの行動追跡を行うことで趣味嗜好を分析し，適切な広告を配信するターゲティング広告は代表的な用途である．さらに，成功報酬型広告の不正対策としても用いられることがある．
+
+次に挙げられるものとしてはリスクベース認証での利用である．OpenAM~\footnote{\url{https://www.forgerock.com/products/access-management}}ではログイン時にFingerprintを採取し，以前のログイン時のFingerprintと大きく異なるFingerprintを採取した際にはなりすましと判断している．
+
+最後に，将来的に考えられる用途としては，サイバー犯罪の証拠としての利用が挙げられる．この実現にはFalse Positiveを低く抑え，高い精度であることが求められる．
 \subsection{対策手法}
 本節では，Fingerprintingの対策手法について説明する．FingerprintはHTTP CookieやSuper Cookieと異なり保存機構を必要としない．よって，既存のトラッキング対策で利用される手法とは異なるアプローチが必要となる．ここではFingerprintingの対策手法を大きく3つに分類した．
 \begin{itemize}
