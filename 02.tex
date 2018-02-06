@@ -40,17 +40,50 @@ HTTPレスポンスの例をListing~\ref{cd-http_res}に示す．1行目はリ�
 \lstinputlisting[caption=HTTPレスポンス（メッセージボディ以外を抜粋）,label=cd-http_res]{code/http_res.txt}
 ステータスラインはHTTPバージョン，ステータスコードおよびテキストフレーズから構成される．ヘッダフィールドは複数のヘッダ名とヘッダ値の組から構成される．Webサーバはステータスコードによりリクエストの結果を通知する．ステータスコードは3桁の数字からなり，100番台は情報，200番台は成功，300番台はリダイレクト，400番台はクライアントエラー，500番台はサーバエラーを表す．
 \subsubsection{HTTP Cookie}
+HTTPクッキーはWebでステートフルな通信を確立することを可能とした技術である．
+HTTPはステートレスなプロトコルであり，Webサーバは複数のリクエストをまたいだ情報や状態の保持を行うことができない．しかし，Webの発展に伴い，ショッピングサイトや契約した利用者のみにサービスを提供するようなセッション管理を行うニーズが発生した．そこで，セッション管理を実現するための仕組みとして，HTTPクッキーが[14] ．HTTPクッキーは現在，RFC6265[15] として標準化されている． 
+
+HTTP Cookieを利用することにより，WebサーバはWebブラウザにデータを保存させ，そのデータを次回以降のHTTPリクエストに含めさせることができる．HTTP Cookieはこのような仕組みで保存したデータをさす場合もある．
+HTTP CookieはWebサーバにより発行され，Set-CookieヘッダによりWebブラウザ内にドメイン毎に保存される．
+\begin{verbatim}
+Set-Cookie: foo=bar
+Set-Cookie: name=john; Expires=Wed, 01 Jun 2020 10:00:00 GMT
+\end{verbatim}
+Set-Cookieヘッダには保存するデータに加え，有効な日時（Expires属性），送信されるドメイン（Domain属性），送信されるURLの階層（Path属性），送信をHTTPSに限定するかどうか（Secure属性），JavaScriptなどからの読み込みの可否（HttpOnly属性）を指定することができる．HTTPクッキーの最大サイズは4KBであり，1ドメイン毎に最低50個（Webブラウザの実装による）のcookieを保存でき，合計で3000個のcookieを保存することができる．ただし，保存できる容量や数はWebブラウザの実装によって一部増加している．Webブラウザは保存したHTTPクッキーをCookieヘッダにより送信する．
+\begin{verbatim}
+Cookie: foo=bar; name=john
+\end{verbatim}
 \subsection{クライアント}
+本節では，Webを構成する要素としてクライアントサイドの技術について解説する．
 \subsubsection{Webブラウザ}
-StatCounter[25]によると，人気のあるブラウザは，スマートフォンのブラウザを除いて，Chrome，Firefox，Internet Explorer（IE），Safariである（表1を参照）．これらのブラウザはほぼ同様の機能を備えているが，レンダリングエンジンやJavaScriptエンジン，更新ポリシーが異なる．Chromeの場合ソフトウェアの更新を回避できないが，他のブラウザではデフォルト設定で自動更新であるものの，更新を回避することが可能である．これらの差異はFingerprintingに利用できる [7][29]．どのブラウザにおいてもHTTPヘッダとJavaScriptはCPUに関する情報が得られるわけではないが，CPUファミリの絞り込みには利用できる． navigator.userAgentプロパティは次に示すように，CPUの世代の推定に利用できるOS名を提供する．
+ユーザエージェントとなるソフトウエアの1つにブラウザがある．ブラウザはWebを閲覧する機能を利用者に提供する．
+ブラウザは利用者の操作によりHTTP通信を行い，リソースを取得し，描画を行う．
+ブラウザの主な構成要素を表~\ref{tb-browser}に示す．
+\input{table/browser}
+キャッシュやHTTPクッキーなどのデータストレージに保存されたデータは，ブラウザの機能により削除することができる． 
+また，多くのブラウザにはプラグインと呼ばれる，ブラウザの機能を拡張するためのプログラムをダウンロードし組み込むことができる．
 
-Mozilla / 5.0（Macintosh; Intel Mac OS X 10.9; rv：35.0）Gecko / 20100101 Firefox / 35.0）．
-
-navigator.cpuClass（IE）およびnavigator.oscpu（Firefox）プロパティは，x86などのCPUアーキテクチャが得られる．以前のバージョンのIEでは，UA-PPCやIntel（R）PXA255などのCPUの名称が得られた．
-
+StatCounter~\footnote{\url{http://gs.statcounter.com}}によると~\footnote{2018年1月の結果である．}，デスクトップに限定した場合人気のあるブラウザは，Chrome，Firefox，IE，Safari，Edgeである．
+以降，これらのデスクトップに限定した場合の人気のあるブラウザをメジャーブラウザと呼ぶこととする．
+メジャーブラウザに関する違いを表~\ref{tb-browser_family}にまとめた．
+\input{table/browser_family}
+これらのブラウザはほぼ同様の機能を備えているが，レンダリングエンジンやJavaScriptエンジンが異なる．
 \subsubsection{HTML}
+HTML~\footnote{HyperText Markup Language}はHyperTextを記述する言語仕様である．HyperTextとは，ハイパーリンクの機能を持ったドキュメントである．ハイパーリンクはあるドキュメントが別のドキュメントを単方向リンクするものである．これを発展してWebが誕生したといった背景もある．
+
+HTMLにはいくつかのバージョンがあるが，2018年現在最新の仕様はHTML5.2~\cite{html5_2}である．HTML5のメジャーアップデートではウェブアプリケーション開発のための機能追加や文書構造の改善を図ることを目的として2014年に勧告された．マイナーバージョンアップに関しては適宜行われている．
 \subsubsection{JavaScript}
+JavaScriptはEcma International[18] によって仕様策定されたオブジェクト指向のスクリプト言語である．Netscape Communications社によって開発され，1997年にECMAScript[19] として標準化された．JavaScriptは主にクライアントサイドスクリプトとしてブラウザによって実行されるが，サーバサイドスクリプトとして利用される場合もある．ここではクライアントサイドのJavaScriptついて説明を行う．
+JavaScriptはHTMLファイルに直接記述するか，外部ファイルとしてHTMLファイルに読み込む方法がある．JavaScriptを用いることで，ブラウザに実装されているAPIの利用やブラウザによって解釈されたHTMLのDOM（Document Object Model）操作などが行える．JavaScriptはブラウザに搭載されているJavaScriptエンジンによって解釈され実行される．JavaScriptエンジンの違いによって，処理速度の差や挙動の違いが生じるものがある．
+
+
+JavaScriptはEcma Internationalによって仕様策定されたオブジェクト指向のスクリプト言語である．Netscape Communicationsによって開発され， 1997年にECMAScriptとして標準化された．JavaScriptは主にクライアントサイドスクリプトとしてWebブラウザによって実行されるが，サーバサイドスクリプトとして利用される場合もある．ここではクライアントサイドのJavaScriptついて説明を行う．
+
+JavaScriptはHTMLファイルに直接記述するか，外部ファイルとしてHTMLファイルに読み込む方法がある．JavaScriptはWebブラウザに搭載されたJavaScriptエンジンによって解釈され実行される．JavaScriptエンジンは一般的にWebブラウザベンダによって異なるため，挙動の違いが生じるものがある．JavaScriptを用いることでWebブラウザに実装されているAPIの利用やWebブラウザによって解釈されたHTMLのDOM操作などが行える．JavaScriptはWebブラウザで実行されるため，利用者のWebブラウザに関する情報を取得する手段として有効である．
+
+また，言語仕様とは異なり，ブラウザで利用できるJavaScript APIはWHATWGで仕様が策定されている．主要な機能はHTML5.1[20] で標準化され，さらに高機能なAPIは機能ごとに標準化されている．代表的な例としては，ブラウザでのP2P通信を実現するWebRTC API[21] や高機能なクライアントストレージを提供するWeb Storage API[22] ，位置情報を取得するGeolocation API[23] などがある． 
 \subsection{サーバ}
+本説では，Webを構成する要素としてサーバサイドの技術について解説する．
 \subsubsection{Webサーバ}
 \subsubsection{PHP}
 \subsubsection{Node.js}
