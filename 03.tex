@@ -11,14 +11,14 @@ RFC 6973~\cite{rfc6973}では，Fingerprintを以下の通り定義している�
 \begin{quote}
 A set of information elements that identifies a device or application instance.
 \end{quote}
-つまり，Fingerprintは端末やアプリケーションインスタンスを識別する情報要素の集合を指す．例えば，アプリケーションインスタンスがウェブブラウザの場合は，User-Agent文字列の情報（Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36）が該当する．また，Fingerprintingは，以下の通り定義している．
+つまり，Fingerprintは端末やアプリケーションインスタンスを識別する情報要素の集合を指す．例えば，アプリケーションインスタンスがブラウザの場合は，User-Agent文字列の情報（例えば，``Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36''）が該当する．また，Fingerprintingは，以下の通り定義している．
 \begin{quote}
 The process of an observer or attacker uniquely identifying (with a sufficiently high probability) a device or application instance based on multiple information elements communicated to the observer or attacker.
 \end{quote}
 つまり，FingerprintingはFingerprintによって端末やアプリケーションインスタンスを高い確度で識別する行為を指す．
 また，特徴点はFingerprintの各要素の名称と本研究では定義する．例えば，User-Agent文字列，IPアドレスが該当する．
 
-ここで，Browser Fingerprintingは，RFC 6973におけるアプリケーションインスタンスがブラウザである場合と定義する．ブラウザから採取できるFingerprintによる識別がBrowser Fingerprintingである．また，本研究において，採取する際にユーザによる操作が必要ではない特徴点を扱うこととする．例えば，Geolocation APIによって，利用者の端末の位置情報を取得しようとすると，ブラウザは利用者に許可を求める．このように，ユーザによる操作が必要となる情報はFingerprintとして扱わない．以降，特に断りがなければ，Fingerprintingと言った場合にはBrowser Fingerprintingを指すものとする．
+ここで，Browser Fingerprintingは，``ブラウザ経由で採取したFingerprintによってFingerprintingすること''と定義する．ブラウザから採取できるFingerprintによる識別がBrowser Fingerprintingである．また，本研究において，採取する際にユーザによる操作が必要ではない特徴点を扱うこととする．例えば，Geolocation APIによって，利用者の端末の位置情報を取得しようとすると，ブラウザは利用者に許可を求める．このように，ユーザによる操作が必要となる情報はFingerprintとして扱わない．以降，特に断りがなければ，Fingerprintingと言った場合にはBrowser Fingerprintingを指すものとする．
 
 \subsection{特徴点の分類}
 本節では，特徴点をソフトウェア特徴点，ネットワーク特徴点，ハードウェア特徴点の3つに分類し説明する．この分類は各特徴点がどの要素により影響を受けるかを表している．例えば，ソフトウエア特徴点は端末のアプリケーションのインストールやアップデートなどソフトウエア構成が変更された場合に変化する特徴点である．ただし，複数の要素に影響を受ける特徴点も存在する．そのような特徴点は最も大きく影響を受ける要素に分類されている．

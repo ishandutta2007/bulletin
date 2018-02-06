@@ -1,12 +1,53 @@
 \newpage
 \section{関連技術}
 \subsection{World Wide Web}
+World Wide Webはインターネット上で提供されるハイパーテキストシステムである．以降，Webと表記した場合はWorld Wide Webを指すものとする．Webはクライアントサーバモデルに基づくシステムであり，WebにアクセスするためのユーザエージェントとWebサーバがHTTP通信を行うことにより実現される．ユーザエージェントにはいくつか種類があるが，利用者による閲覧を目的としたものは特にWebブラウザと呼ばれている．Web上にあるドキュメントの記述には主にHTML~\footnote{Hypertext Markup Language}が用いられる．このWeb上のドキュメントをWebページと呼ぶ．
+
+Webブラウザが，あるWebページへアクセスした際の基本的なフローを以下に示す．HTTPに関する詳細については後に紹介する．
+
+\begin{enumerate}
+\item WebブラウザはWebサーバにWebページを要求するためのHTTPリクエストを送信する．
+\item Webサーバは受け取ったHTTPリクエストを元に要求内容を解析し，要求されたデータをHTTPレスポンスとしてWebブラウザに返す．
+\item WebブラウザはHTTPレスポンスに含まれるHTMLを解析する．HTMLデータの解析は上から順に解析され，外部リソースを読み込む記述があると，基本的には逐次HTTPリクエストを送信し~\footnote{例えば，scriptタグにdefer属性を付与すると，DOMツリーの構築が終了してからリソースを取得する．詳しくは\url{https://html.spec.whatwg.org/multipage/scripting.html\#attr-script-async}を参照されたい．}取得する．
+\item WebブラウザはHTMLやCSS，JavaScript，画像などのリソースの解析が完了すると，Webページを描画する．
+\end{enumerate}
 \subsection{HTTP}
-\subsubsection{リクエスト}
-\subsubsection{レスポンス}
+HTTPにおいて2018年現在有効なものはHTTP/1.1とHTTP/2である．
+本研究では特にこの違いについて言及しないが，HTTP/1.1を基本として論述することとする．
+
+HTTP/1.1はRFC7230~\cite{rfc7230}，RFC7231~\cite{rfc7231}，RFC7232~\cite{rfc7232}，RFC7233~\cite{rfc7233}，RFC7234~\cite{rfc7234}，RFC7235~\cite{rfc7235}で定義されているアプリケーション層のプロトコルである．HTMLやXMLによって記述されたハイパーテキストの転送を目的に仕様策定されたが，画像や音声などのバイナリ形式のデータの転送も可能である．HTTPはリクエストレスポンス型のプロトコルであるため，HTTPによる通信はクライアントであるWebブラウザが送信するHTTPリクエストと，その応答としてWebサーバが返すHTTPレスポンスの組からなる．
+
+なお，HTTP/2に関してはRFC7540~\cite{rfc7540}にて定義されている．
+\subsubsection{HTTPリクエスト}
+HTTPリクエストは以下の順序で構成される．各要素は改行コード（\texttt{CRLF}）で区切られている．
+\begin{enumerate}
+\item リクエストライン
+\item ヘッダフィールド
+\item CRLF
+\item メッセージボディ（任意）
+\end{enumerate}
+HTTPリクエストの例をListing~\ref{cd-http_req}に示す．1行目はリクエストラインであり，2行目以降はリクエストヘッダフィールド，最終行が\texttt{CRLF}である．この例ではメッセージボディは存在しない．
+\lstinputlisting[caption=HTTPリクエスト,label=cd-http_req]{code/http_req.txt}
+\subsubsection{HTTPレスポンス}
+HTTPレスポンスは以下の順序で構成される．各要素は改行コード（\texttt{CRLF}）で区切られている．
+\begin{enumerate}
+\item ステータスライン
+\item ヘッダフィールド
+\item CRLF
+\item メッセージボディ（任意）
+\end{enumerate}
+HTTPレスポンスの例をListing~\ref{cd-http_res}に示す．1行目はリクエストラインであり，2行目以降はリクエストヘッダフィールド，最終行が\texttt{CRLF}である．メッセージボディにはHTMLコンテンツが含まれていたが，紙面の都合上省略した．
+\lstinputlisting[caption=HTTPレスポンス（メッセージボディ以外を抜粋）,label=cd-http_res]{code/http_res.txt}
+ステータスラインはHTTPバージョン，ステータスコードおよびテキストフレーズから構成される．ヘッダフィールドは複数のヘッダ名とヘッダ値の組から構成される．Webサーバはステータスコードによりリクエストの結果を通知する．ステータスコードは3桁の数字からなり，100番台は情報，200番台は成功，300番台はリダイレクト，400番台はクライアントエラー，500番台はサーバエラーを表す．
 \subsubsection{HTTP Cookie}
 \subsection{クライアント}
 \subsubsection{Webブラウザ}
+StatCounter[25]によると，人気のあるブラウザは，スマートフォンのブラウザを除いて，Chrome，Firefox，Internet Explorer（IE），Safariである（表1を参照）．これらのブラウザはほぼ同様の機能を備えているが，レンダリングエンジンやJavaScriptエンジン，更新ポリシーが異なる．Chromeの場合ソフトウェアの更新を回避できないが，他のブラウザではデフォルト設定で自動更新であるものの，更新を回避することが可能である．これらの差異はFingerprintingに利用できる [7][29]．どのブラウザにおいてもHTTPヘッダとJavaScriptはCPUに関する情報が得られるわけではないが，CPUファミリの絞り込みには利用できる． navigator.userAgentプロパティは次に示すように，CPUの世代の推定に利用できるOS名を提供する．
+
+Mozilla / 5.0（Macintosh; Intel Mac OS X 10.9; rv：35.0）Gecko / 20100101 Firefox / 35.0）．
+
+navigator.cpuClass（IE）およびnavigator.oscpu（Firefox）プロパティは，x86などのCPUアーキテクチャが得られる．以前のバージョンのIEでは，UA-PPCやIntel（R）PXA255などのCPUの名称が得られた．
+
 \subsubsection{HTML}
 \subsubsection{JavaScript}
 \subsection{サーバ}
@@ -15,7 +56,49 @@
 \subsubsection{Node.js}
 \subsection{オペレーティングシステム}
 \subsection{CPU}
+本節では本研究で対象となるCPUの機能とCPUファミリについて紹介する．
+\subsubsection{SSE2}
+SSE~\footnote{Streaming SIMD Extensions}は，Intel Pentium IIIプロセッサで1999年に導入されたIntel x86アーキテクチャへのSIMD命令セットの拡張である． SSEには70個の命令が含まれている．SSEが搭載されたCPUは，4つの32ビットレジスタを持ち，単精度浮動小数点データのみをサポートしている．レジスタを64ビットに拡張したSSE2は，2001年にIntel Pentium IVプロセッサで導入された．SSE2では倍精度浮動小数点データをサポートしている．このため，SSEとSSE2のプロセッサでは同じ計算であっても，計算結果に差異が生じる．
+ただし，SSE3とSSE4.xはSSE2と互換性があるので，計算結果は同様である．
+\subsubsection{HTT}
+HTT~\footnote{Hyper-Threading Technology}は2002年にIntel Xeonプロセッサへ導入された．
+複数の独立したタスクを一度に実行するSMT~\footnote{Simultaneous Multithreading}のIntelにおける実装である．
+後に，Pentium 4，Itanium，Atom，Core iシリーズに導入された．HTTを使用すると，1つの物理的なコアが2つの論理プロセッサとしてOSに表示される．OSは1つの物理コアを利用して2つのプロセスを一度にスケジューリングできる．ただし物理コアの場合とは異なり，論理コアは浮動小数点演算ユニットと整数演算ユニットを共有するため，1つのプロセスが片方の演算ユニットを占有するともう1つのプロセスはその演算ユニットでの演算が行えない．つまり2つの論理コアで浮動小数点データのみを計算する場合は1つの物理コアのように機能する．
+例えば，モンテカルロ法による円周率$\pi$の算出には浮動小数点と整数の両方のデータを複数回計算する．
+HTTが有効なCPUにおいてこの計算を実施した場合，プロセスの処理を遅れることから識別が可能となる．
+\subsection{マルチコア}
+マルチコアプロセッサは2つ以上の物理演算ユニットを搭載している．キャッシュやバスを共有するので単一のCPUで並列処理を実行でき，各コアはほとんど競合を起こさずに同時に計算できる．HTTとは異なり，マルチコアプロセッサはコア数に応じて同時処理を行うスレッドを実行できる．
+\subsubsection{Turbo Boost}
+Turbo Boost~\footnote{Intel Turbo Boost Technology}はCPUの動作周波数を上げることでパフォーマンスを向上させる機能である．Intelが製造するCPUに実装されている．Turbo BoostはCPUの動作周波数を常に上げるのではなく，処理の内容や使用するCPUコア数，CPUの温度などの要因によって動的に決定する．また，負荷の高い処理を実行するときや複数のCPUコアを同時に使用するときはTurbo Boostが効果的に機能しない．
+
+なお，Turbo Boostには実装された世代に応じてIntel Turbo Boost TechnologyとIntel Turbo Boost Technology 2.0の2つがあるが，提案手法が対象とするのはIntel Turbo Boost Technology 2.0のみである．以降，Turbo Boostと表記した場合はIntel Turbo Boost Technology 2.0を指すものとする．
+\subsection{AES-NI}
+AES-NI~\footnote{Advanced Encryption Standard New Instructions}はIntelおよびAMDのx86アーキテクチャにおける拡張命令セットであり，2010年のIntel Coreプロセッサファミリで導入された．この命令は暗号アルゴリズムAESによる高速で安全なデータの暗号化と復号が可能とする．AES-NIは，AESのハードウェアアクセラレーションを提供する6つの命令で構成されている．4つの命令はAESによる暗号化と復号をサポートし，他の2つの命令はAESによる鍵拡張をサポートする．Crypto++~\footnote{\url{http://www.cryptopp.com/}}を用いた性能解析では，Pentium 4上でAES/GCMを使用した際に，1バイトあたり約28.0サイクルから1バイトあたり3.5サイクルまで暗号操作によるクロック数が減少する．Web Cryptography APIはブラウザが稼働する端末にAES-Nが有効なCPUが搭載されている場合に限り，AES-NIによる暗号化と復号を行う．CPUがAES-NIをサポートする場合，AES-NIがサポートされていないCPUよりも高速に暗号化および復号の計算を行うことができる．
+
+メジャーブラウザでは，Web Cryptography API~\footnote{\url{https://www.w3.org/TR/WebCryptoAPI/}}を用いたAESによる暗号化と復号処理においてAES-NIが機能するように実装されている．
+\subsubsection{CPUファミリ}
+\ref{tb-cpu}にIntelが提供するCPUについてまとめた．近年はマルチコア化に加えてSSE，HTT，AES-NIといった拡張機能の搭載が増加している．ほかにもTurbo Boost，Advanced Vector eXtensions（AVX），およびVT-x，VT-d，VT-cなどの仮想化技術も同様に増加している．
 \subsection{アプリケーション}
 \subsection{仮想化}
 \subsection{統計解析}
+
 \subsection{機械学習}
+本節では，典型的な機械学習手法として，SVM~\footnote{Support Vector Machine}を紹介する．
+SVMは1995年に，AT\&T社のV.Vapnikによって提案された2クラスの分類を行うための教師有り学習手法である．
+与えられたデータから，クラスの境界面を決定することによって，分類するための教師データを生成する．
+境界面は，マージン最大化によって決定され，クラスの境界付近に存在するデータから，可能な限り離れた位置に境界面を設置される．
+図~\ref{fig-svm}に教師データにおける境界面の概念を図示する．
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.6\textwidth,pagebox=artbox]{fig/svm.png}
+    \caption{SVMによる分類境界面}
+    \label{fig-svm}
+\end{figure}
+ある2次元平面上に円で表現されているデータと三角形で表現されているデータが存在する．これらのデータの境界面をSVMによって作成する場合，各クラスのデータから，他のクラスに最も近いデータを抽出し，その中間を通る面をこれら2つのクラスの境界面としている．
+未知のデータを分類する際には，この境界面を利用しどちらのクラスに属するかを判断することで分類を行う．
+また，入力値をそのまま扱うと境界面をとることができない場合がある．
+そのような場合にも対応できるように，入力値空間から高次元空間へ写像をとりその高次元空間で境界面を作成する．
+
+基本的には2クラス分類ではあるが，多クラス分類に対応したライブラリとしてLibSVM~\footnote{\url{https://www.csie.ntu.edu.tw/~cjlin/libsvm/}}や，SVM Light~\footnote{\url{http://svmlight.joachims.org/}}がある．
+多クラスのSVMには，one-against-all方式と，pairwise方式がある．one-against-all方式では，分類データがそのクラスに属しているか否かの判定を各クラスに対して行う．学習にかかる時間は長くなるが分類性能は比較的高いとされている．
+pairwise方式では複数あるクラスの内2つを選び，どちらのクラスに近いかをトーナメント方式で判定する．学習にかかる時間は比較的短いが，one-against-all方式に比べて精度は下がるとされている．
