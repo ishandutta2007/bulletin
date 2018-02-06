@@ -1,0 +1,25 @@
+Handle 0x000C, DMI type 4, 48 bytes
+Processor Information
+	Socket Designation: U3E1
+	Type: Central Processor
+	Family: <OUT OF SPEC>
+	Manufacturer: Intel(R) Corporation
+	ID: E9 06 08 00 FF FB EB BF
+	Version: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
+	Voltage: 0.8 V
+	External Clock: 100 MHz
+	Max Speed: Unknown
+	Current Speed: 2400 MHz
+	Status: Populated, Enabled
+	Upgrade: Other
+	L1 Cache Handle: 0x0009
+	L2 Cache Handle: 0x000A
+	L3 Cache Handle: 0x000B
+	Serial Number: To Be Filled By O.E.M.
+	Asset Tag: To Be Filled By O.E.M.
+	Part Number: To Be Filled By O.E.M.
+	Core Count: 2
+	Core Enabled: 2
+	Thread Count: 4
+	Characteristics:
+		64-bit capable
