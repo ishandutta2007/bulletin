@@ -148,7 +148,31 @@ RegExpのTurbo Boostの有無による比率は1.437，NavierStokesの比率は1
 Turbo Boostの有無もしくは搭載・非搭載は，この比率を利用することで推定が可能となる．
 
 \subsubsection{CPUファミリ，マイクロアーキテクチャ，モデルナンバー}
+CPUの推定は次のフローで行われる．
 
+\begin{enumerate}
+\item CPU機能による絞り込み．SSE2，物理コア数，HTT，AES-NIによって推定対象を絞り込む．
+\item CPUパフォーマンスによる推定．JavaScriptベンチマークを実行し，教師データに近しいCPUを推定結果とする．
+\end{enumerate}
+
+まず，CPU機能により推定対象を絞り込む．
+\ref{tb-cpu}にCPUファミリごとの機能の差異を示している．
+ここから，CPUの機能が判明すれば，CPUファミリやマイクロアーキテクチャ，モデルナンバーの絞り込みが行えることが分かる．
+例えば，SSE2が有効，物理コア数が2，HTTが有効，AES-NIが有効の場合は図~\ref{fig-cpu_est}における緑で着色した部分に該当することが分かる．
+なお，図~\ref{fig-cpu_est}は\ref{tb-cpu}から一部抜粋したものである．
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth,pagebox=artbox]{fig/cpu_est.png}
+    \caption{CPU推定の絞り込みのフロー}
+    \label{fig-cpu_est}
+\end{figure}
+
+次に，CPUごとに演算パフォーマンスが異なることから，JavaScriptベンチマークによる推定を行う．
+JavaScriptベンチマークにはOctane 2.0，SunSpider~\footnote{AppleのWebkitチームが開発したベンチマークソフト．\url{https://webkit.org/perf/sunspider/sunspider.html}}，Kraken~\footnote{Mozillaが開発したベンチマークソフト．\url{https://krakenbenchmark.mozilla.org/}}を用いた．
+また，ブラウザファミリによって基本的な演算速度に差異があることから，ブラウザファミリに応じて教師データを分割している．
+推定の際は，1-nearest neighbor algorithmを用いた．
+これは，最も近しい教師データを推定結果とする，単純なアルゴリズムである．
 
 \subsubsection{バイトオーダー}
 JavaScriptには効率的にバイナリデータを扱う必要性から\texttt{Typed Array}が実装されている．
@@ -168,7 +192,9 @@ JavaScriptには効率的にバイナリデータを扱う必要性から\texttt
 
 \lstinputlisting[caption=メモリのパフォーマンス,label=cd-memory,language=JavaScript]{code/memory.js}
 
-まず，適当なサイズの\texttt{Array Buffer}を確保した後に数値を書き込み初期化する．次に現在時刻を\texttt{t0}とし，\texttt{TypedArray.prototype.reverse()}で書き込んだ数値を反転させる．
+まず，適当なサイズの\texttt{Array Buffer}を確保した後に数値を書き込み初期化する．
+次に現在時刻を\texttt{t0}とし，\texttt{TypedArray.prototype.reverse()}で書き込んだ数値を反転させる．
+\texttt{TypedArray.prototype.reverse()}は読み書きを同時に実施することから選出した．
 処理が終わったときの現在時刻と\texttt{t0}を比較し処理時間を計測する．
 これを最初に確保するサイズを変化させながら，処理時間の比率を算出する．
 
@@ -180,6 +206,20 @@ WebGLの実行にはJavaScriptコードだけではなく，GLSLで記述され�
 この際，テクスチャに読み書きを行うことで実際に画面に描画されることはない．
 このようにレンダリングのみにGPUを使用せずに汎用的な計算をさせる利用法はGPGPUと呼ばれている．
 
-端末に搭載されたGPUの性能に応じてGPGPU処理におけるパフォーマンスも向上する．
-よって，GPGPUパフォーマンスを測定することでGPU性能の傾向を推定することは可能といえる．実装についてはgpu.js~\footnote{\url{http://gpu.rocks/}}を用い，GPGPUと同一の演算をCPUで行ったときの時間比率を計測した．
-なお，Internet Explorerについては実行に必要なAPIが未実装であることから実行ができない．
+事前検証として，GPUありの場合の演算と，GPUなしの場合の演算を実施した~\footnote{GPUありはi7-4770+GTX660，GPUなしはGPUありの場合からGTX660を取り外して計測した．}
+図~\ref{fig-gpgpu}に結果を示す．
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth,pagebox=artbox]{fig/gpgpu.png}
+    \caption{GPGPUのベンチマーク}
+    \label{fig-gpgpu}
+\end{figure}
+
+GPUありの場合は，GPGPUとCPUの演算比が14.06となり，GPUなしの場合は6.54となった．
+これにより，GPGPUを実施する際にGPUの存在が大きな影響を与えることがわかった．
+
+つまり，端末に搭載されたGPUの性能に応じてGPGPU処理におけるパフォーマンスも向上する．
+GPGPUパフォーマンスを測定することでGPU性能の傾向を推定することは可能といえる．
+実装についてはgpu.js~\footnote{\url{http://gpu.rocks/}}を用い，GPGPUと同一の演算をCPUで行ったときの時間比率を計測した．
+なお，Internet Explorerについては実行に必要なAPIであるWebGL 2.0が未実装であることから実行ができない．
