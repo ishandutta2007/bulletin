@@ -11,6 +11,24 @@ Webブラウザが，あるWebページへアクセスした際の基本的な�
 \item WebブラウザはHTTPレスポンスに含まれるHTMLを解析する．HTMLデータの解析は上から順に解析され，外部リソースを読み込む記述があると，基本的には逐次HTTPリクエストを送信し~\footnote{例えば，scriptタグにdefer属性を付与すると，DOMツリーの構築が終了してからリソースを取得する．詳しくは\url{https://html.spec.whatwg.org/multipage/scripting.html\#attr-script-async}を参照されたい．}取得する．
 \item WebブラウザはHTMLやCSS，JavaScript，画像などのリソースの解析が完了すると，Webページを描画する．
 \end{enumerate}
+
+\subsection{URL}
+インターネット上のリソースはURL~\cite{rfc1738,rfc3986,url_ls}~\footnote{Uniform Resource Locator}で表現される．
+WebにおいてもこのURLをもとにリソースの指定を行い，WebブラウザはURLを解釈して，Webページやその他のリソースをダウンロードする．
+RFCにおける定義をもとにURLの例を示す．
+
+\begin{verbatim}
+http://example.com/notfound
+\end{verbatim}
+
+:（コロン）よりも前にスキーム，後にスキームによって定められた形式が表記されている．
+この例では，\texttt{http}がスキームで，ここではHTTPでリソースを取得することを表す．
+\texttt{http}では，\texttt{//<user>:<password>@<host>:<port>/<url-path>}で表記することが定義されている．
+この例では，\texttt{example.com}がhostに該当し，\texttt{notfound}がurl-pathに該当する．
+なお，``<user>:<password>@''，``:<password>''，``:<port>''，``/<url-path>''は省略可能である．
+
+URLは実装に依存して異なり，WebブラウザにおいてはRFC準拠ではない．よって厳密なURL標準は存在しないとも言える．
+
 \subsection{HTTP}
 HTTPにおいて2018年現在有効なものはHTTP/1.1とHTTP/2である．
 本研究では特にこの違いについて言及しないが，HTTP/1.1を基本として論述することとする．

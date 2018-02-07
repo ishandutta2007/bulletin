@@ -92,8 +92,8 @@ Fingerprintingの利用法として3つ紹介する．
 \item Fingerprintの低減
 \end{itemize}
 \subsubsection{ホワイトリスト/ブラックリスト}
-ホワイトリストやブラックリストを利用して，JavaScriptをロードするかといったブラウザの動作を管理することができる．リストにはURI\footnote{Uniform Resource Identifier}が検索キーとして登録される．
-ウェブサイトのURIが変更された場合は機能しなくなるというデメリットも存在する．
+ホワイトリストやブラックリストを利用して，JavaScriptをロードするかといったブラウザの動作を管理することができる．リストにはURLが検索キーとして登録される．
+ウェブサイトのURLが変更された場合は機能しなくなるというデメリットも存在する．
 また，ブラックリストを採用しているソフトウェアが一般的だが，網羅的なリストが必要となる．
 スクリプトのブロックに用いるリストの種類やブロックの有無が特徴点になることが指摘されている．
 GoogleのSafeBrowsing APIやTracking Protectionはブラックリストを用いてトラッキングを行うウェブサイトが検出する．
@@ -102,7 +102,7 @@ Ghostery~\cite{Ghostery}は，トラッキングをドメインベースで検�
 ビーコンやアクセス解析も含め，様々な手法でトラッキングを行う2,000以上のドメインが手法別に分類されている．
 Fingerprintingを利用しているWebサイトもリスト化されており遮断することができる．
 
-AdblockPlus~\cite{acar2014web}は，リストに設定されているURIを元にHTTP通信の制御を行う，ブラウザの拡張機能である．AdBlock Plusに適切なリストを設定することで，閲覧するWebサイト上で行われるCanvas Fingerprintingの大部分を遮断できたという研究結果もある．
+AdblockPlus~\cite{acar2014web}は，リストに設定されているURLを元にHTTP通信の制御を行う，ブラウザの拡張機能である．AdBlock Plusに適切なリストを設定することで，閲覧するWebサイト上で行われるCanvas Fingerprintingの大部分を遮断できたという研究結果もある．
 
 NoScriptは，新しいページを読み込むときに，ホワイトリストを基にJavaScriptやFlashを実行するか決定する．
 JavaScriptやFlashが無効化されると，これらを使用したFingerprintingは不可能になる．
