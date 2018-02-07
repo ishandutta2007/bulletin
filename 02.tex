@@ -26,7 +26,7 @@ HTTPリクエストは以下の順序で構成される．各要素は改行コ�
 \item CRLF
 \item メッセージボディ（任意）
 \end{enumerate}
-HTTPリクエストの例をListing~\ref{cd-http_req}に示す．1行目はリクエストラインであり，2行目以降はリクエストヘッダフィールド，最終行が\texttt{CRLF}である．この例ではメッセージボディは存在しない．
+HTTPリクエストの例をコード~\ref{cd-http_req}に示す．1行目はリクエストラインであり，2行目以降はリクエストヘッダフィールド，最終行が\texttt{CRLF}である．この例ではメッセージボディは存在しない．
 \lstinputlisting[caption=HTTPリクエスト,label=cd-http_req]{code/http_req.txt}
 \subsubsection{HTTPレスポンス}
 HTTPレスポンスは以下の順序で構成される．各要素は改行コード（\texttt{CRLF}）で区切られている．
@@ -36,7 +36,7 @@ HTTPレスポンスは以下の順序で構成される．各要素は改行コ�
 \item CRLF
 \item メッセージボディ（任意）
 \end{enumerate}
-HTTPレスポンスの例をListing~\ref{cd-http_res}に示す．1行目はリクエストラインであり，2行目以降はリクエストヘッダフィールド，最終行が\texttt{CRLF}である．メッセージボディにはHTMLコンテンツが含まれていたが，紙面の都合上省略した．
+HTTPレスポンスの例をコード~\ref{cd-http_res}に示す．1行目はリクエストラインであり，2行目以降はリクエストヘッダフィールド，最終行が\texttt{CRLF}である．メッセージボディにはHTMLコンテンツが含まれていたが，紙面の都合上省略した．
 \lstinputlisting[caption=HTTPレスポンス（メッセージボディ以外を抜粋）,label=cd-http_res]{code/http_res.txt}
 ステータスラインはHTTPバージョン，ステータスコードおよびテキストフレーズから構成される．ヘッダフィールドは複数のヘッダ名とヘッダ値の組から構成される．Webサーバはステータスコードによりリクエストの結果を通知する．ステータスコードは3桁の数字からなり，100番台は情報，200番台は成功，300番台はリダイレクト，400番台はクライアントエラー，500番台はサーバエラーを表す．
 \subsubsection{HTTP Cookie}
@@ -119,17 +119,17 @@ BIOSにおけるデータ構造について記載されており，どのメモ�
 \input{table/smbios_ov}
 
 CPUに関する情報はSMBIOSのType 4にある．
-Listing~\ref{cd-eg_smbios_type4}に出力結果を例示する．
+コード~\ref{cd-eg_smbios_type4}に出力結果を例示する．
 
 \lstinputlisting[caption=SMBIOS Type 4,label=cd-eg_smbios_type4]{code/smbios_type4.txt}
 
-Listing~\ref{cd-eg_smbios_type4}によると，CPUのモデルナンバーが\texttt{Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz}であること，コア数，スレッド数がそれぞれ2，4であることがわかる．
+コード~\ref{cd-eg_smbios_type4}によると，CPUのモデルナンバーが\texttt{Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz}であること，コア数，スレッド数がそれぞれ2，4であることがわかる．
 CPUのモデルナンバーを得ることで，端末がどのようなCPU命令に対応しているかも把握することが可能である．
 
 PCIe~\footnote{PCI Express．シリアル接続される拡張インターフェース．ビデオカードやサウンドカードを接続することが多い．}に関する情報はSMBIOSのType 9にある．
 GPUは多くがパフォーマンスを最大限発揮するためにPCIe x16に接続される．
 一般に，ノートパソコンなどで拡張デバイスを接続する際はExpressCard~\cite{express_card}が利用されるので，Type 9のデータが存在することは稀である．
-Listing~\ref{cd-smbios_type9}に，GPUがPCIeで接続されている端末において採取したType 9の出力結果の例を示す．
+コード~\ref{cd-smbios_type9}に，GPUがPCIeで接続されている端末において採取したType 9の出力結果の例を示す．
 
 \lstinputlisting[caption=SMBIOS Type 9,label=cd-smbios_type9]{code/smbios_type9.txt}
 
@@ -137,7 +137,7 @@ Type 9のデータはPCIe x1など他にも存在するが，前述した通りG
 \texttt{Current Usage: In Use}になっているとデバイスが接続されていることを示している．
 しかし，GPU自体の情報はSMBIOSから得ることはできないので，具体的にどの種類のGPUが接続されているかについては\texttt{lspci}コマンドなどPCI接続されたデバイス情報を直接参照できる仕組みが必要である．
 
-メモリに関する情報はSMBIOSのType 17にある．Listing~\ref{cd-smbios_type17}にデータを例示する．
+メモリに関する情報はSMBIOSのType 17にある．コード~\ref{cd-smbios_type17}にデータを例示する．
 
 \lstinputlisting[caption=SMBIOS Type 17,label=cd-smbios_type17]{code/smbios_type17.txt}
 

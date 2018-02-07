@@ -1,7 +1,12 @@
 \newpage
-\newgeometry{top=35truemm,bottom=30truemm,left=10truemm,right=10truemm}
 \appendix
+\newgeometry{top=35truemm,bottom=30truemm,left=10truemm,right=10truemm}
 \section{CPUファミリごとの機能の差異}
 \label{tb-cpu}
 \input{table/cpu.tex}
 \restoregeometry
+
+\newpage
+\section{\hfp~コード}
+\label{cd-hfp}
+\lstinputlisting[caption=,title=Hardware Fingerprintingコード, language=JavaScript]{code/hfp.js}

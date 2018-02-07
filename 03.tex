@@ -35,8 +35,10 @@ The process of an observer or attacker uniquely identifying (with a sufficiently
   \item[拡張機能]拡張機能はブラウザの機能を追加するためのプログラムである．ブラウザベンダによってはアドオンとも呼ばれる．広告の遮断やセキュリティの向上などブラウザの機能性を向上させる目的で利用されている．拡張機能の中には，攻撃コードの削除や広告の遮断のためにウェブページの改変を行うものがあり，この改変を検知することで，JavaScriptから特定の拡張機能の有無を推定することができる．
   \item[プラグイン]プラグインはブラウザの機能を拡張するためのプログラムのことである．FlashやJava Appletを再生，実行するためにインストールされる．端末にインストールされたプラグインの情報はJavaScriptから採取することができる．この情報にはプラグインの名前のほか，バージョンやファイル名が含まれる．なお，2018年現在はJava Appletはメジャーブラウザでの利用ができず，Flashについても一部のサイトを残し，順次利用ができなくなるように変更が行われている．2020年にはブラウザにおけるFlashのサポートが終了される見込みである．
   \item[MIMEタイプ]MIMEタイプはデータの種類を表すためのラベルである．WebサーバはレスポンスヘッダにMIMEタイプを含めることによりレスポンスするデータの種類をブラウザに伝えることができる．ブラウザが認識するMIMEタイプはJavaScriptから採取することができ，プラグインのインストールによりその種類が増えることがある．
-  \item[インストール済みフォント]端末にインストールされたフォントはOSの種類やバージョンによって異なる．また，アプリケーションをインストールした際に追加される場合や利用者がフォントのファイルを追加する場合もある．JavaScriptとCSSを利用する方法をListing~\ref{installed_font}に示す~\footnote{本論文の著者が作成したライブラリがGithubとnpmで公開されている．\url{https://github.com/orleika/available-fonts}}．
+  \item[インストール済みフォント]端末にインストールされたフォントはOSの種類やバージョンによって異なる．また，アプリケーションをインストールした際に追加される場合や利用者がフォントのファイルを追加する場合もある．JavaScriptとCSSを利用する方法をコード~\ref{installed_font}に示す~\footnote{本論文の著者が作成したライブラリがGithubとnpmで公開されている．\url{https://github.com/orleika/available-fonts}}．
+  
 \lstinputlisting[caption=インストール済みフォントの採取コード,label=installed_font,language=JavaScript]{code/font.js}
+
 \item[ブラウザの言語設定]ブラウザはリクエストヘッダに利用可能な言語のリストと優先度を含めWebサーバに送信する．利用可能な言語とその優先度はユーザがブラウザの設定によって変更する．言語設定はリクエストヘッダのほかJavaScriptの\texttt{navigator.language}から採取できる．
 \item[タイムゾーン]端末に設定されたタイムゾーンはJavaScriptの\texttt{new Date().getTimezoneOffset()}から採取可能である．
 \item[HTTP Cookieの利用可否]HTTP Cookieはブラウザの設定により，拒否することが可能である．ブラウザによってはサードパーティークッキーのみを拒否することも可能である．HTTP Cookieが利用できるか否かはJavaScriptの\texttt{navigator.cookieEnabled}から確認できる~\footnote{ブラウザによってはこのプロパティに既知のバグが存在するので，\texttt{document.cookie}に値を書き込み，値が保存されるかを観察したほうが良い．}．

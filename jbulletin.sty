@@ -58,6 +58,14 @@
 % source code
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{listings}
+\renewcommand{\lstlistingname}{コード}
+\renewcommand{\lstlistlistingname}{コード一覧}
+
+% Bugfix unexpected string '1zw' appears
+\makeatletter
+\def\lst@title@dropdelim\hskip1zw{\if\lst@title\relax\vspace{1.5em}\fi}
+\makeatother
+
 \lstset{
 	breaklines=true,
     tabsize=2,
