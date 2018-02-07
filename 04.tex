@@ -181,7 +181,7 @@ JavaScriptには効率的にバイナリデータを扱う必要性から\texttt
 ビューには\texttt{Int8}や\texttt{Uint32}など数値型に応じた種類があり，対応する数値型でバッファのデータを読み書きする．
 このときビューはネイティブのバイトオーダーとなる．コード~\ref{cd-endian}にバイトオーダーの採取に用いたコードを示す．
 
-\lstinputlisting[caption=バイトオーダー,label=cd-endian,language=JavaScript]{code/endian.js}
+\lstinputlisting[caption=バイトオーダー採取コード,label=cd-endian,language=JavaScript]{code/endian.js}
 
 \texttt{Uint16Array}で確保したメモリはネイティブのバイトオーダーに応じてメモリに確保される．
 確保されたメモリ領域を\texttt{Uint8Array}で読み取ったときに，バイトオーダーに応じて値が変化する．
@@ -191,7 +191,7 @@ JavaScriptには効率的にバイナリデータを扱う必要性から\texttt
 \texttt{Typed Array}はメモリを直接参照できることから，\texttt{Typed Array}を用いたアクセスのパフォーマンスを計測する．
 推定に用いたコードをコード~\ref{cd-memory}に示す．
 
-\lstinputlisting[caption=メモリのパフォーマンス,label=cd-memory,language=JavaScript]{code/memory.js}
+\lstinputlisting[caption=メモリのパフォーマンス採取コード,label=cd-memory,language=JavaScript]{code/memory.js}
 
 まず，適当なサイズの\texttt{Array Buffer}を確保した後に数値を書き込み初期化する．
 次に現在時刻を\texttt{t0}とし，\texttt{TypedArray.prototype.reverse()}で書き込んだ数値を反転させる．
