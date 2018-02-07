@@ -17,6 +17,7 @@
 
 \subsection{\hfp~採取システム}
 \hfp~採取システムは，WindowsとmacOSを対象に，SMBIOSに基づくBIOS情報をデータベースに送信するツールであるHardware Information Report ToolとHardware Fingerprintingを実施するWebサイトであるHardware Fingerprinting Siteから構成されている．
+以降は，この\hfp~採取システムを単に採取システムと呼ぶこととする．
 この採取システムでは新たに提案するハードウェア特徴点の中でもSMBIOSとの比較が行え，かつ実行時間が短いものを扱っている．
 採取システムの実行フローを図\ref{fig-hfp_system}に示す．
 
@@ -85,7 +86,7 @@ Hardware Fingerprinting SiteではHardware Information Report Toolの送信が�
 
 \subsection{新たなハードウェア特徴点}
 本節では，新たなハードウェア特徴点の採取法を提案する．
-ここで扱う特徴点の一部は，先に示した\hfp~採取システムに実装されている．
+ここで扱う特徴点の一部は，先に示した採取システムに実装されている．
 
 \subsubsection{AES-NI}
 AES-NIはAESの暗号化，復号処理を高速化する．
@@ -95,7 +96,7 @@ AES-NIはAESの暗号化，復号処理を高速化する．
 
 \begin{figure}[H]
 	\centering
-    \includegraphics[width=\textwidth,pagebox=artbox]{fig/aes_ni.png}
+    \includegraphics[width=0.8\textwidth,pagebox=artbox]{fig/aes_ni.png}
     \caption{AES-NIのベンチマーク}
     \label{fig-aes_ni}
 \end{figure}
@@ -211,7 +212,7 @@ WebGLの実行にはJavaScriptコードだけではなく，GLSLで記述され�
 
 \begin{figure}[H]
 	\centering
-    \includegraphics[width=\textwidth,pagebox=artbox]{fig/gpgpu.png}
+    \includegraphics[width=0.8\textwidth,pagebox=artbox]{fig/gpgpu.png}
     \caption{GPGPUのベンチマーク}
     \label{fig-gpgpu}
 \end{figure}
