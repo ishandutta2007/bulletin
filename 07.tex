@@ -10,7 +10,7 @@ Eckersley~\cite{eckersley2010unique}は，Fingerprintingを実施するウェブ
 
 Moweryら~\cite{mowery2011fingerprinting}は，JavaScriptの様々な処理のパフォーマンスによるベンチマークを用いて，同一端末上での複数のブラウザファミリの特定と，OS，CPUの識別を行い，実験結果を示している．ブラウザファミリーは98.2\%，CPUアーキテクチャは45.3\%の精度で識別できることを示した．
 
-Mayerら~\cite{mayer2012third}は，サードパーティによるインターネット広告に関するプライバシー問題の調査を実施した．サードパーティウェブトラッキングに関する技術としてSuper Cookieの仕組みについて解説し，それらの追跡から保護するシステムについて提案を行っている．Super Cookieに関しては後にHTST~\footnote{HTTP Strict Transport Security}やHPKP~\footnote{Public Key Pinning Extension for HTTP}を利用したものが実施されている．
+Mayerら~\cite{mayer2012third}は，サードパーティによるインターネット広告に関するプライバシー問題の調査を実施した．サードパーティウェブトラッキングに関する技術としてSuper Cookieの仕組みについて解説し，それらの追跡から保護するシステムについて提案を行っている．Super Cookieに関しては後にHTST~\cite{hsts}やHPKP~\cite{hpkp}を利用したものが実施されている．
 
 Nikiforakisら~\cite{nikiforakis2013cookieless}は，Fingerprintingを利用しているサイトを調査し，Alexa TOP10000サイトの0.4\%が該当することを明らかにした．また，Panopticlickと大手Fingerprintingプロバイダ3社の手法を比較し解説している．さらに，JavaScriptオブジェクトに特別な操作を行い，Fingerprintingへの活用を示した．また，ブラウザ拡張機能を使用した場合にブラウザの特徴が偽装できているかの実験結果も示し，偽装ツールを用いた場合に逆に追跡されうるリスクがあることに言及している．
 
@@ -26,7 +26,7 @@ Nakiblyら~\cite{nakibly2015hardware}は，HTML5のAPIからアクセスでき�
 
 後藤ら~\cite{後藤浩行2013web}は，CPUのコア数，GPUレンダリングの有無，メディアデバイスの有無や，タブレット端末の表示向きといった複数のハードウエア情報をFingerprintingで採取できることを示した．
 
-桐生らは，演算結果の差によってCPUの拡張命令であるSSE2~\footnote{Streaming SIMD Extensions 2}への対応の有無が特定できることを示した~\cite{桐生直輝2013cpu}．また，Web Worker APIを用いてマルチスレッド処理を行い演算速度の差を測定することでCPUコア数が推定できることを示した~~\cite{桐生直輝2014web}．
+桐生らは，演算結果の差によってCPUの拡張命令であるSSE2への対応の有無が特定できることを示した~\cite{桐生直輝2013cpu}．また，Web Worker APIを用いてマルチスレッド処理を行い演算速度の差を測定することでCPUコア数が推定できることを示した~~\cite{桐生直輝2014web}．
 
 Saitoらは，JavaScriptのベンチマークを詳細に分析し，CPUの機能のTurbo BoostとCPUの拡張命令のAES-NIの推定手法を提案した~\cite{saito2016estimating}．
 また，CPUの識別手法も提案し，モデルナンバーを91.4\%の精度で識別できると示した~\cite{saito2017web}．

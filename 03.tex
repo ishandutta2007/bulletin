@@ -45,7 +45,7 @@ The process of an observer or attacker uniquely identifying (with a sufficiently
 \item[Web Storageの利用可否]ブラウザにはWeb Storageとよばれる，JavaScriptを用いてブラウザにデータを保存するAPIがある．厳密にはWeb Storageはインターフェースであり，実体はlocalStorageやsessionStorageの保存期間に差異があるAPIを用いて読み書きを行う．Web StorageはHTTP Cookieと同様にトラッキングに利用される場合があり，ブラウザの設定で利用を制限することができる．Web Storageの利用可否はJavaScriptから実体のオブジェクトを用いて読み書きを行うことで確認できる．
 \item[JavaScriptの実装状況]ブラウザファミリ（JavaScriptエンジン）により，Ecma-262への準拠しているかの実装状況に差異がある．このことからブラウザの設定などによりUser-Agent文字列が書き換えられた場合でも，JavaScriptの実装状況からブラウザファミリやそのバージョンを推定できる．
 \item[CSSの実装状況]CSSの実装状況はブラウザファミリにより異なる．JavaScriptと同様にブラウザの設定などによりUser-Agent文字列などが書き換えられた場合でも，CSSの実装状況からブラウザファミリやそのバージョンの推定を推定できる．
-\item[ブラウザの表示領域]ブラウザのコンテンツ表示領域~\footnote{ビューポートという．}のサイズはJavaScriptの\texttt{window.outerHeight}と\texttt{window.outerHeight}で採取できる．また，ブラウザの外観のサイズはJavaScriptの\texttt{window.innerHeight}と\texttt{window.innerHeight}で採取できる．これらを組み合わせることにより``戻る''，``進む''ボタンやアドレスバーなどのカスタマイズ可能なブラウザのUI部分のサイズが計算でき，この値を元にブラウザファミリやブックマークの表示有無などの推定が可能である．
+\item[ブラウザの表示領域]ブラウザのコンテンツ表示領域~\footnote{ビューポートともいう．}のサイズはJavaScriptの\texttt{window.outerHeight}と\texttt{window.outerHeight}で採取できる．また，ブラウザの外観のサイズはJavaScriptの\texttt{window.innerHeight}と\texttt{window.innerHeight}で採取できる．これらを組み合わせることにより``戻る''，``進む''ボタンやアドレスバーなどのカスタマイズ可能なブラウザのUI部分のサイズが計算でき，この値を元にブラウザファミリやブックマークの表示有無などの推定が可能である．
 \item[その他のリクエストヘッダ]Accept-Charset，Accept-Language，Origin，Connectionヘッダなどのヘッダはブラウザファミリにより存在しない場合や値が異なる場合がある．また，Refererヘッダは一部のアンチウイルスソフトなどによって削除される場合がある．
 \item[TCP/IPヘッダ]IPパケットの初期TTL，TCPパケットのウインドウサイズ，TCPオプションなどはOSファミリやそのバージョンにより異なる．これらの特徴から受動的に接続元端末のOSの種類やバージョンを推定するPassive OS Fingerprintingと呼ばれる手法がある．代表的なツールとしてp0f~\cite{p0f}がある．
 \item[SSL/TLSヘッダ]TLSハンドシェイクにおけるClient HelloはOS，ブラウザごとに異なることがある．Hus{\'a}kら~\cite{husak2016https}はこれらの情報をもとにOSやブラウザを推定する手法を提案した．
@@ -65,7 +65,7 @@ The process of an observer or attacker uniquely identifying (with a sufficiently
 \item[画面のリフレッシュレート]リフレッシュレートとは単位時間あたりの画面の再描画回数である．一般的な液晶ディスプレイのリフレッシュレートは60Hzであるが，120Hzや144Hzのディスプレイも存在する．リフレッシュレートはJavaScriptにより計測可能である~\cite{takasu2015survey} ．
 \item[タッチ機能の有無]スマートフォンや一部のPCのディスプレイはタッチ入力を受け付けるものがある．JavaScriptの\texttt{navigator.maxTouchPoints}により最大同時タッチ数が採取できる．タッチ入力のブラウザが動作する端末の場合この値が1以上になる．
 \item[画面の向き]スマートフォンやタブレット端末では縦や横に画面の向きを切り替えて使用することができる．JavaScriptの\texttt{screen.orientation.type}から4方向の向きを採取することができる．
-\item[デバイスピクセル比]デバイスピクセル比とはCSSで指定するピクセルサイズと実際に画面に描画されるピクセルサイズの比である．Retinaディスプレイ~\footnote{アップル製品において高画素密度のディスプレイを指す．}を搭載するiPhoneやiPadではこの値が2となる．Android端末では機種により異なる値を取る．デバイスピクセル比はJavaScriptの\texttt{window.devicePixelRatio}により採取する方法やCSSのみで取得する方法もある~\cite{takei2015web}． 
+\item[デバイスピクセル比]デバイスピクセル比とはCSSで指定するピクセルサイズと実際に画面に描画されるピクセルサイズの比である．Retinaディスプレイ~\footnote{Appleの製品における高画素密度のディスプレイを指す．RetinaはAppleが商標権を獲得している．}を搭載するiPhoneやiPadではこの値が2となる．Android端末では機種により異なる値を取る．デバイスピクセル比はJavaScriptの\texttt{window.devicePixelRatio}により採取する方法やCSSのみで取得する方法もある~\cite{takei2015web}． 
 \item[ハードディスクの空き容量]端末のハードディスクの空き容量はJavaScriptを利用した方法により採取することができる~\cite{takasu2015survey}．この上限値は，ハードディスク空き容量を約1MB以内の誤差で推定可能な値となる．
 \item[CPU]JavaScriptによるベンチマークによりCPUファミリやモデルナンバーが推定できる~\cite{saito2017web}．
 \item[CPUコア数]CPUのコア数はJavaScriptのWeb Worker APIを利用することで推定が可能である~\cite{桐生直輝2014web}．CPUの論理コア数のみを採取する場合はJavaScriptで\texttt{navigator.hardwareConcurrency}を参照する．
