@@ -6,6 +6,94 @@
 結果として，採取システムでは61のサンプルを収集した．
 採取システムを用いないで収集した結果については個別に記載する．
 
+\subsection{AES-NI}
+採取システムを用いないで収集した．
+合計341サンプルを収集し，その内訳はChromeが138，Firefoxが111，IEが92である．その他のメジャーブラウザについてはサンプルが収集できなかった．
+SVMによる分類を実施し，LOOCV~\footnote{Leave-one-out cross validation．サンプル集合から1つだけ抜き出してテストデータとし，残りを訓練データとする．これをすべてのサンプルが1回ずつテストデータとなるように繰り返す検証法．}にて検証した．
+
+結果をブラウザごとに分けて，図~\ref{fig-aes_rst}に示す．
+図の縦軸はAESRateを，横軸はサンプルIDを表しており，AES-NIが無効なサンプルと有効なサンプルを色分けして表現している．
+
+\begin{figure}[H]
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=\textwidth,pagebox=cropbox]{fig/aes_rst_chrome.png}
+    \subcaption{Chrome}
+  \end{minipage}
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=\textwidth,pagebox=cropbox]{fig/aes_rst_firefox.png}
+    \subcaption{Firefox}
+  \end{minipage}
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=\textwidth,pagebox=cropbox]{fig/aes_rst_ie.png}
+    \subcaption{IE}
+  \end{minipage}
+  \caption{AESRate（採取システム以外）}\label{fig-aes_rst}
+\end{figure}
+
+Chromeでは99.28\%，Firefoxでは71.17\%，IEでは77\%の正答率であった．
+また，採取時間は平均28.15秒で，最大で243.0秒かかるものもあった．
+ブラウザファミリによって正答率に大きな差異があることから，AES-NIが効果的に機能するかは実装によって大きく左右されることが分かる．
+
+採取システムでは処理時間の問題から提案手法よりも少ない時間での計測を行った．
+収集結果を図~\ref{fig-aes_rst_sys}に示す．縦軸はAESRateを，横軸はサンプルIDを表す．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth,pagebox=cropbox]{fig/aes_rst.pdf}
+    \caption{AESRate（採取システム）}
+    \label{fig-aes_rst_sys}
+\end{figure}
+
+AES-NIへの対応はSMBIOSのType 4におけるVersionから仕様を参照した．
+収集したサンプルからは有意差が認められなかった．
+これはAES-NIの推定において長い処理時間が必要であることの裏付けとも言える．
+
+\subsection{Turbo Boost}
+採取システムを用いないで収集した．
+このサンプルは，AES-NIにおける採取システムを用いないで収集したものと同一である．
+また，検証法についてもAES-NIと同様である．
+
+結果をブラウザごとに分けて，図~\ref{fig-turbo_rst}に示す．
+図の縦軸は$\frac{NavierStokes}{RegExp}$を，横軸はサンプルIDを表しており，Turbo Boostが無効のサンプルと有効なサンプルを色分けして表現している．
+
+\begin{figure}[H]
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=\textwidth,pagebox=cropbox]{fig/turbo_rst_chrome.png}
+    \subcaption{Chrome}
+  \end{minipage}
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=\textwidth,pagebox=cropbox]{fig/turbo_rst_firefox.png}
+    \subcaption{Firefox}
+  \end{minipage}
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=\textwidth,pagebox=cropbox]{fig/turbo_rst_ie.png}
+    \subcaption{IE}
+  \end{minipage}
+  \caption{NavierStokes/RegExp（採取システム以外）}\label{fig-turbo_rst}
+\end{figure}
+
+Chromeでは84.78\%，Firefoxでは82.88\%，IEでは55.0\%の正答率であった．
+また，採取時間は平均46.91秒で，最大で136.0秒かかるものもあった．
+AES-NIと同様に，ブラウザファミリによって正答率に大きな差異があることから，Turbo Boostが効果的に機能するかは実装によって大きく左右されることが分かる．
+
+\subsection{CPUファミリ，マイクロアーキテクチャ，モデルナンバー}
+採取システムを用いないで収集した．
+合計435のサンプルを収集した．実験協力者はCPUに関する情報とJavaScriptベンチマークの結果を提供する．
+提案手法で推定した結果を表~\ref{tb-cpu_family_rst}，\ref{tb-cpu_arch_rst}に示す．
+
+\input{table/cpu_family_rst}
+
+\input{table/cpu_arch_rst}
+
+推定の正答率は，CPUファミリが88.6\%，マイクロアーキテクチャが75.8\%，モデルナンバーが91.4\%だった．
+また，実行時間は平均89.0秒であった．
+
 \subsection{OS}
 採取システムで収集した結果を示す．
 
@@ -35,50 +123,6 @@
 4コア8スレッドのような性能の高い端末のデータは顕著な差異が認められる．
 一方で，先行研究と同様に，2コア4スレッドや2コア2スレッドの識別は困難であった．
 
-\subsection{AES-NI}
-採取システムを用いないで収集した結果を示す．
-合計341サンプルを収集し，その内訳はChromeが138，Firefoxが111，IEが92である．その他のメジャーブラウザについてはサンプルが収集できなかった．
-SVMによる分類を実施し，LOOCV~\footnote{Leave-one-out cross validation．サンプル集合から1つだけ抜き出してテストデータとし，残りを訓練データとする．これをすべてのサンプルが1回ずつテストデータとなるように繰り返す検証法．}にて検証した．
-
-結果をブラウザごとの分け図~\ref{fig-aes_rst}に示す．
-図の縦軸はAESRateを，横軸はサンプルIDを表しており，AES-NIが無効なサンプルと有効なサンプルを色分けして表現している．
-また，サンプルIDはサンプルを一意に識別するものであり，色分けされたグラフの先頭のサンプルIDのみ記述している．
-
-\begin{figure}[H]
-  \begin{minipage}[b]{0.5\linewidth}
-    \centering
-    \includegraphics[width=\textwidth,pagebox=cropbox]{fig/aes_rst_chrome.png}
-    \subcaption{Chrome}
-  \end{minipage}
-  \begin{minipage}[b]{0.5\linewidth}
-    \centering
-    \includegraphics[width=\textwidth,pagebox=cropbox]{fig/aes_rst_firefox.png}
-    \subcaption{Firefox}
-  \end{minipage}
-  \begin{minipage}[b]{0.5\linewidth}
-    \centering
-    \includegraphics[width=\textwidth,pagebox=cropbox]{fig/aes_rst_ie.png}
-    \subcaption{IE}
-  \end{minipage}
-  \caption{AESRate（採取システム以外）}\label{fig-aes_rst}
-\end{figure}
-
-Chromeでは99.28\%，Firefoxでは71.17\%，IEでは77\%の正答率であった．
-また，採取時間は平均28.15秒で，最大で243.0秒かかるものもあった．
-
-採取システムでは処理時間の問題から提案手法よりも少ない時間での計測を行った．
-収集結果を図~\ref{fig-aes_rst}に示す．縦軸はAESRateを，横軸はサンプルIDを表す．
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth,pagebox=cropbox]{fig/aes_rst.pdf}
-    \caption{AESRate（採取システム）}
-    \label{fig-aes_rst}
-\end{figure}
-
-AES-NIへの対応はSMBIOSのType 4におけるVersionから仕様を参照した．
-収集したサンプルからは有意差が認められなかった．
-これはAES-NIの推定において長い処理時間が必要であることの裏付けとも言える．
 
 \subsection{バイトオーダー}
 採取システムにて収集したサンプルにおいてビッグエンディアン環境はなかった．
@@ -128,6 +172,3 @@ AES-NIへの対応はSMBIOSのType 4におけるVersionから仕様を参照し�
 高い比率を示したサンプル（つまり，GPGPUパフォーマンスが高い）の中には，GPUで処理が行えない端末向けにCPUのみでレンダリング速度を向上させるSwiftShader~\footnote{Googleが開発している，CPUのみで描画処理を高速に動作させるライブラリ．Chromeでは利用可能なGPUがない場合には自動でこの機能が有効となる．\url{https://github.com/google/swiftshader}}を実装しているブラウザでアクセスしている端末もあった．
 また，CPUにオンチップで搭載されているGPUについても性能が向上している．
 ただし，レンダリング性能との関係性は依然あるので，\fp~における活用は考えられる．
-
-\subsubsection{Turbo Boost}
-\subsubsection{CPUファミリ，マイクロアーキテクチャ，モデルナンバー}
