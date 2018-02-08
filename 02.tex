@@ -13,7 +13,7 @@ Webブラウザが，あるWebページへアクセスした際の基本的な�
 \end{enumerate}
 
 \subsection{URL}
-インターネット上のリソースはURL\cite{rfc1738,rfc3986,url_ls}\footnote{Uniform Resource Locator}で表現される．
+インターネット上のリソースはURL~\cite{rfc1738,rfc3986,url_ls}\footnote{Uniform Resource Locator}で表現される．
 WebにおいてもこのURLをもとにリソースの指定を行い，WebブラウザはURLを解釈して，Webページやその他のリソースをダウンロードする．
 RFCにおける定義をもとにURLの例を示す．
 
@@ -28,15 +28,15 @@ http://example.com/notfound
 なお，``<user>:<password>@''，``:<password>''，``:<port>''，``/<url-path>''は省略可能である．
 
 URLは実装に依存して異なり，Webブラウザ関してはRFC準拠ではない．よって厳密なURL標準は存在しない．
-ただし，URL Living Standard\cite{url_ls}は，ブラウザベンダが策定に関わっているので，Webブラウザにおける事実上の標準と言える．
+ただし，URL Living Standard~\cite{url_ls}は，ブラウザベンダが策定に関わっているので，Webブラウザにおける事実上の標準と言える．
 
 \subsection{HTTP}
 HTTPにおいて2018年現在有効なものはHTTP/1.1とHTTP/2である．
 本研究では特にこの違いについて言及しないが，HTTP/1.1を基本として論述することとする．
 
-HTTP/1.1はRFC7230\cite{rfc7230}，RFC7231\cite{rfc7231}，RFC7232\cite{rfc7232}，RFC7233\cite{rfc7233}，RFC7234\cite{rfc7234}，RFC7235\cite{rfc7235}で定義されているアプリケーション層のプロトコルである．HTMLやXMLによって記述されたハイパーテキストの転送を目的に仕様策定されたが，画像や音声などのバイナリ形式のデータの転送も可能である．HTTPはリクエストレスポンス型のプロトコルであるため，HTTPによる通信はクライアントであるWebブラウザが送信するHTTPリクエストと，その応答としてWebサーバが返すHTTPレスポンスの組からなる．
+HTTP/1.1はRFC7230~\cite{rfc7230}，RFC7231~\cite{rfc7231}，RFC7232~\cite{rfc7232}，RFC7233~\cite{rfc7233}，RFC7234~\cite{rfc7234}，RFC7235~\cite{rfc7235}で定義されているアプリケーション層のプロトコルである．HTMLやXMLによって記述されたハイパーテキストの転送を目的に仕様策定されたが，画像や音声などのバイナリ形式のデータの転送も可能である．HTTPはリクエストレスポンス型のプロトコルであるため，HTTPによる通信はクライアントであるWebブラウザが送信するHTTPリクエストと，その応答としてWebサーバが返すHTTPレスポンスの組からなる．
 
-なお，HTTP/2に関してはRFC7540\cite{rfc7540}にて定義されている．
+なお，HTTP/2に関してはRFC7540~\cite{rfc7540}にて定義されている．
 \subsubsection{HTTPリクエスト}
 HTTPリクエストは以下の順序で構成される．各要素は改行コード（\texttt{CRLF}）で区切られている．
 \begin{enumerate}
@@ -62,7 +62,7 @@ HTTPレスポンスの例をコード~\ref{cd-http_res}に示す．1行目はリ
 HTTP CookieはWebでステートフルな通信を確立することを可能とした技術である．
 HTTPはステートレスなプロトコルであり，Webサーバは複数のリクエストをまたいだ情報や状態の保持を行うことができない．
 しかし，Webの発展に伴い，ショッピングサイトや契約した利用者のみにサービスを提供するようなセッション管理を行うニーズが発生した．
-そこで，セッション管理を実現するための仕組みとして，HTTP CookieがRFC6265\cite{rfc6265}にて標準化された．
+そこで，セッション管理を実現するための仕組みとして，HTTP CookieがRFC6265~\cite{rfc6265}にて標準化された．
 
 HTTP Cookieを利用することにより，WebサーバはWebブラウザにデータを保存させ，そのデータを次回以降のHTTPリクエストに含めさせることができる．HTTP Cookieはこのような仕組みで保存したデータをさす場合もある．
 HTTP CookieはWebサーバにより発行され，Set-CookieヘッダによりWebブラウザ内にドメイン毎に保存される．
@@ -93,8 +93,8 @@ StatCounter\footnote{StatCounterはWebトラフィックの解析を専門に行
 \subsubsection{HTML}
 HTML\footnote{HyperText Markup Language}はHyperTextを記述する言語仕様である．HyperTextとは，ハイパーリンクの機能を持ったドキュメントである．ハイパーリンクはあるドキュメントが別のドキュメントを単方向リンクするものである．これを発展してWebが誕生したといった背景もある．
 
-HTMLにはいくつかのバージョンがあるが，W3C\footnote{1994年に設立されたWebで使用される各種技術の仕様化団体．\url{https://www.w3.org/}}で勧告されている2018年現在最新の仕様はHTML5.2\cite{html5_2}である．
-また，WHATWG\footnote{W3Cに反発して2004年に設立されたWeb技術開発に関するコミュニティ．主要ブラウザベンダであるMozilla, Apple, Microsoft, Googleのすべてが参加している．\url{https://whatwg.org/}}でもHTMLの仕様を公開している\cite{html_ls}．両者はそれぞれ仕様を策定しているが，近年ではWHATWGにW3Cが追随している模様で，大きく差があるわけではない．
+HTMLにはいくつかのバージョンがあるが，W3C\footnote{1994年に設立されたWebで使用される各種技術の仕様化団体．\url{https://www.w3.org/}}で勧告されている2018年現在最新の仕様はHTML5.2~\cite{html5_2}である．
+また，WHATWG\footnote{W3Cに反発して2004年に設立されたWeb技術開発に関するコミュニティ．主要ブラウザベンダであるMozilla, Apple, Microsoft, Googleのすべてが参加している．\url{https://whatwg.org/}}でもHTMLの仕様を公開している~\cite{html_ls}．両者はそれぞれ仕様を策定しているが，近年ではWHATWGにW3Cが追随している模様で，大きく差があるわけではない．
 \subsubsection{JavaScript}
 JavaScriptはECMAによって仕様策定されたスクリプト言語である．Netscapeに招聘されたBrendan Eichらによって開発され，Netscape 2.0に搭載された．SelfとSchemeの2つのプログラミング言語の特性を受け継いでおり，オブジェクト指向でありながら，関数型言語の特性を併せ持ちかつ，Javaのような文法特性を持っている．1997年にECMA-262として標準化された．当時のECMA-262は基本的な文法に関する仕様がほとんどで簡素なものであった．その後，ブラウザの発展とともにJavaScriptエンジンも進化し，ECMA-262のエディションも更新されていった．ECMAScript 6th editionから毎年更新されることとなった．2018年1月現在では，ECMAScript 2017が公開されており，ECMAScript 2018が策定中である．仕様上はECMA-262やECMAScriptと呼ぶが，ブラウザに実装されている言語としてはJavaScriptという呼称が一般的である．以降，JavaScriptと指した場合にはECMAScriptの仕様を基にJavaScriptエンジンに実装されたプログラミング言語を指すものとする．
 
@@ -138,7 +138,7 @@ AES-NI\footnote{Advanced Encryption Standard New Instructions}はIntelおよびA
 この命令は暗号アルゴリズムAESによる高速で安全なデータの暗号化と復号が可能とする．
 AES-NIは，AESのハードウェアアクセラレーションを提供する6つの命令で構成されている．
 4つの命令はAESによる暗号化と復号をサポートし，他の2つの命令はAESによる鍵拡張をサポートする．
-Crypto++\footnote{\url{http://www.cryptopp.com/}}を用いた性能解析では，Pentium 4上でAES/GCMを使用した際に，1バイトあたり約28.0サイクルから1バイトあたり3.5サイクルまで暗号操作によるクロック数が減少する．Web Cryptography API\cite{web_crypto}はブラウザが稼働する端末にAES-Nが有効なCPUが搭載されている場合に限り，AES-NIによる暗号化と復号を行う．
+Crypto++\footnote{\url{http://www.cryptopp.com/}}を用いた性能解析では，Pentium 4上でAES/GCMを使用した際に，1バイトあたり約28.0サイクルから1バイトあたり3.5サイクルまで暗号操作によるクロック数が減少する．Web Cryptography API~\cite{web_crypto}はブラウザが稼働する端末にAES-Nが有効なCPUが搭載されている場合に限り，AES-NIによる暗号化と復号を行う．
 CPUがAES-NIをサポートする場合，AES-NIがサポートされていないCPUよりも高速に暗号化および復号の計算を行うことができる．
 
 メジャーブラウザでは，Web Cryptography APIを用いたAESによる暗号化と復号処理においてAES-NIが機能するように実装されている．
@@ -148,7 +148,7 @@ CPUがAES-NIをサポートする場合，AES-NIがサポートされていな�
 \subsection{SMBIOS}
 Intelが初期のCPUとしてIntel 8086を発表して以来，これに後方互換をもたせた命令セットを使用してCPUの製造を行っている．これをx86アーキテクチャと呼び，その他のCPUベンダとしてAMDもこれと互換があるアーキテクチャを製造している．
 
-SMBIOS\footnote{System Management BIOS．BIOSはOSが起動する前に起動し，周辺デバイスの管理や制御を行う．}は，x86アーキテクチャにおいて，マザーボード及び，システムベンダが，製品に関する管理情報をどのように表示するのかについての仕様である\cite{smbios_spec}．
+SMBIOS\footnote{System Management BIOS．BIOSはOSが起動する前に起動し，周辺デバイスの管理や制御を行う．}は，x86アーキテクチャにおいて，マザーボード及び，システムベンダが，製品に関する管理情報をどのように表示するのかについての仕様である~\cite{smbios_spec}．
 BIOSにおけるデータ構造について記載されており，どのメモリアドレスにどのようなデータが格納されているか記述してある．
 各データはTypeという識別子でどのような内容がその構造に含まれるのかを識別している．
 表~\ref{tb-smbios}にSMBIOSで定義されたデータ構造の中で，本研究の対象となるもののみを抽出して示す．
@@ -164,7 +164,7 @@ CPUのモデルナンバーを得ることで，端末がどのようなCPU命�
 
 PCIe\footnote{PCI Express．シリアル接続される拡張インターフェース．ビデオカードやサウンドカードを接続することが多い．}に関する情報はSMBIOSのType 9にある．
 GPUは多くがパフォーマンスを最大限発揮するためにPCIe x16に接続される．
-一般に，ノートパソコンなどで拡張デバイスを接続する際はExpressCard\cite{express_card}が利用されるので，Type 9のデータが存在することは稀である．
+一般に，ノートパソコンなどで拡張デバイスを接続する際はExpressCard~\cite{express_card}が利用されるので，Type 9のデータが存在することは稀である．
 コード~\ref{cd-smbios_type9}に，GPUがPCIeで接続されている端末において採取したType 9の出力結果の例を示す．
 
 \lstinputlisting[caption=SMBIOS Type 9,label=cd-smbios_type9]{code/smbios_type9.txt}

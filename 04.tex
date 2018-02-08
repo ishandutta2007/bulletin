@@ -67,9 +67,9 @@ Hardware Fingerprinting SiteではHardware Information Report Toolの送信が�
 
 \begin{description}
 	\item[OS]\mbox{}\\
-   	\texttt{Math.tan(-1e300)}の演算誤差を利用する\cite{tor_mathtan}
+   	\texttt{Math.tan(-1e300)}の演算誤差を利用する~\cite{tor_mathtan}
     \item[CPUのコア数，スレッド数]\mbox{}\\
-    複数の\texttt{Web Worker}の処理速度比を利用する\cite{後藤浩行2013web,桐生直輝2014web}
+    複数の\texttt{Web Worker}の処理速度比を利用する~\cite{後藤浩行2013web,桐生直輝2014web}
     \item[AES-NI]\mbox{}\\
     Web Cryptography APIとそれ以外の演算との速度比を利用する
     \item[バイトオーダー]\mbox{}\\
@@ -77,7 +77,7 @@ Hardware Fingerprinting SiteではHardware Information Report Toolの送信が�
     \item[メモリのパフォーマンス]\mbox{}\\
     \texttt{Typed Array}で保存される値がメモリに直に書き込まれることを利用する
     \item[GPU]\mbox{}\\
-    WebGLの\texttt{WEBGL\_debug\_renderer\_info}から採取する\cite{mowery2012pixel}
+    WebGLの\texttt{WEBGL\_debug\_renderer\_info}から採取する~\cite{mowery2012pixel}
     \item[GPUのパフォーマンス]\mbox{}\\
     WebGLのシェーダを応用したGPGPUによるCPUとの演算速度比を利用する
 \end{description}
