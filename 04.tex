@@ -69,9 +69,9 @@ Hardware Fingerprinting SiteではHardware Information Report Toolの送信が�
 	\item[OS]\mbox{}\\
    	\texttt{Math.tan(-1e300)}の演算誤差を利用する~\cite{tor_mathtan}
     \item[CPUのコア数，スレッド数]\mbox{}\\
-    複数の\texttt{Web Worker}の処理速度比を利用する~\cite{後藤浩行2013web,桐生直輝2014web}
+    \texttt{Web Workers}の処理速度比を利用する~\cite{後藤浩行2013web,桐生直輝2014web}
     \item[AES-NI]\mbox{}\\
-    Web Cryptography APIとそれ以外の演算との速度比を利用する
+    Web Cryptographyとそれ以外の演算との速度比を利用する
     \item[バイトオーダー]\mbox{}\\
     \texttt{Typed Array}の\texttt{DataView}がネイティブに依存することを利用する
     \item[メモリのパフォーマンス]\mbox{}\\
@@ -103,7 +103,7 @@ AES-NIはAESの暗号化，復号処理を高速化する．
 
 図からも分かる通り，AES-NIが有効の場合はそうでない場合よりも，一般的に3倍から10倍程度処理を高速化することができる．
 
-AES-NIをブラウザで活用するためにはWeb Cryptography APIを使用する．
+AES-NIをブラウザで活用するためにはWeb Cryptographyを使用する．
 このAPIによるAESの処理を行うことで，AES-NIが有効な端末と無効な端末の演算速度に差が生じると考えられる．
 ただし，CPUの基本的な演算速度は性能により異なるので，AES-NIに関係なく処理時間に違いが出てしまう．
 そこで，AES-NIに依存しない演算速度の基準となる処理時間でAESの処理時間を正規化する．
@@ -118,7 +118,7 @@ AES-NIを推定するために必要な演算式は以下の通りになる．
 \end{eqnarray*}
 
 AES-NIが有効な端末は，AES-NI無効もしくは非搭載のものよりAESRateが小さくなる傾向になる．
-AESを用いた処理 (AES operation) はWeb Cryptography APIを用いて，暗号モードAES-CBC，鍵長128ビットで整数配列の暗号化と復号を64,000,000回繰り返した．
+AESを用いた処理 (AES operation) はWeb Cryptographyを用いて，暗号モードAES-CBC，鍵長128ビットで整数配列の暗号化と復号を64,000,000回繰り返した．
 AES-NIに依存しない演算 (Monte Carlo calculation) はモンテカルロ法を用いて，円周率の演算を50,000,000回繰り返した．
 以上の演算を1セットとし，これを10セット行い，平均値を処理時間とし，AESRateの算出を行った．
 

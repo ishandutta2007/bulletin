@@ -49,13 +49,13 @@ The process of an observer or attacker uniquely identifying (with a sufficiently
 \item[その他のリクエストヘッダ]Accept-Charset，Accept-Language，Origin，Connectionヘッダなどのヘッダはブラウザファミリにより存在しない場合や値が異なる場合がある．また，Refererヘッダは一部のアンチウイルスソフトなどによって削除される場合がある．
 \item[TCP/IPヘッダ]IPパケットの初期TTL，TCPパケットのウインドウサイズ，TCPオプションなどはOSファミリやそのバージョンにより異なる．これらの特徴から受動的に接続元端末のOSの種類やバージョンを推定するPassive OS Fingerprintingと呼ばれる手法がある．代表的なツールとしてp0f~\cite{p0f}がある．
 \item[SSL/TLSヘッダ]TLSハンドシェイクにおけるClient HelloはOS，ブラウザごとに異なることがある．Hus{\'a}kら~\cite{husak2016https}はこれらの情報をもとにOSやブラウザを推定する手法を提案した．
-\item[Canvas Fingeprint]ブラウザ上で2Dビットマップ画像の描画を行うCanvas APIを利用することで，描画誤差によるFingerprintを採取できる．これは，Moweryら~\cite{mowery2012pixel}によって提案され，Canvas Fingerprintと呼ばれる．OS，ブラウザのバージョン，デバイスピクセル比など複数の条件に起因して値が変わるが，Canvas FingerprintとUser-Agent文字列を対応させることで，Canvas FingerprintからOSとブラウザのバージョンを推定することができる．
+\item[Canvas Fingeprint]ブラウザ上で2Dビットマップ画像の描画を行うCanvas~\cite{canvas}を利用することで，描画誤差によるFingerprintを採取できる．これは，Moweryら~\cite{mowery2012pixel}によって提案され，Canvas Fingerprintと呼ばれる．OS，ブラウザのバージョン，デバイスピクセル比など複数の条件に起因して値が変わるが，Canvas FingerprintとUser-Agent文字列を対応させることで，Canvas FingerprintからOSとブラウザのバージョンを推定することができる．
 \end{description}
 \subsubsection{ネットワーク特徴点}
 ネットワーク特徴点は端末が接続するネットワーク構成や設定によって変化する特徴点である．
 \begin{description}
 \item[グローバルIPアドレス]グローバルIPアドレスはHTTPリクエストの送信元IPアドレスである．同じ端末からのアクセスでもグローバルIPアドレスが変化する場合がある．また，通信路上のNAPT\footnote{Network Address Port Translation}を行うルータにより1つのグローバルIPアドレスを複数の端末で利用される場合がある．さらに，キャッシュ目的にプロキシを用いている場合はWebサーバが採取できるIPアドレスはプロキシのものとなる．モバイル向けに通信負荷を低減させる目的からプロキシを用いる\footnote{Opera MiniではOBMLと呼ばれるプロキシ経由の圧縮技術が実装されている．\url{https://dev.opera.com/articles/opera-binary-markup-language/}}場合が増えており注意すべきである．以上のことからグローバルIPアドレスのみでの端末識別は困難である．
-\item[プライベートIPアドレス]多くのネットワークではNAPTにより1つのグローバルIPアドレスが複数の端末で利用されている．この場合，各端末にそのネットワーク内でのみ有効なプライベートIPアドレスが割り当てられている．プライベートIPアドレスはWebRTC APIにより取得が可能である~\cite{細井理央2015ブラウザが属するネットワークの情報を採取する} ．
+\item[プライベートIPアドレス]多くのネットワークではNAPTにより1つのグローバルIPアドレスが複数の端末で利用されている．この場合，各端末にそのネットワーク内でのみ有効なプライベートIPアドレスが割り当てられている．プライベートIPアドレスはWebRTC API~\cite{webrtc}により取得が可能である~\cite{細井理央2015ブラウザが属するネットワークの情報を採取する} ．
 \item[LAN内に存在する端末のIPアドレス]LANには複数の端末が存在する場合が多い．これらのIPアドレスはIMG要素やXHRを用いた方法により検出が可能である~\cite{細井理央2015ブラウザが属するネットワークの情報を採取する} ．
 \end{description}
 \subsubsection{ハードウェア特徴点}
@@ -68,10 +68,10 @@ The process of an observer or attacker uniquely identifying (with a sufficiently
 \item[デバイスピクセル比]デバイスピクセル比とはCSSで指定するピクセルサイズと実際に画面に描画されるピクセルサイズの比である．Retinaディスプレイ\footnote{Appleの製品における高画素密度のディスプレイを指す．RetinaはAppleが商標権を獲得している．}を搭載するiPhoneやiPadではこの値が2となる．Android端末では機種により異なる値を取る．デバイスピクセル比はJavaScriptの\texttt{window.devicePixelRatio}により採取する方法やCSSのみで取得する方法もある~\cite{takei2015web}．
 \item[ハードディスクの空き容量]端末のハードディスクの空き容量はJavaScriptを利用した方法により採取することができる~\cite{takasu2015survey}．この上限値は，ハードディスク空き容量を約1MB以内の誤差で推定可能な値となる．
 \item[CPU]JavaScriptによるベンチマークによりCPUファミリやモデルナンバーが推定できる~\cite{saito2017web}．
-\item[CPUコア数]CPUのコア数はJavaScriptのWeb Worker APIを利用することで推定が可能である~\cite{桐生直輝2014web}．CPUの論理コア数のみを採取する場合はJavaScriptで\texttt{navigator.hardwareConcurrency}を参照する．
+\item[CPUコア数]CPUのコア数はJavaScriptのWeb Workers~\cite{web_workers}を利用することで推定が可能である~\cite{桐生直輝2014web}．CPUの論理コア数のみを採取する場合はJavaScriptで\texttt{navigator.hardwareConcurrency}を参照する．
 \item[AES-NIの対応の有無]AES-NI\footnote{Advanced Encryption Standard New Instructions}は暗号化アルゴリズムであるAESの暗号化処理を高速化させるためのCPU拡張命令である．AESの暗号化処理にかかる時間を計測することでAES-NIの対応有無を推定することができる~\cite{saito2016estimating}．また，一部の端末とブラウザファミリではTLSの暗号スイートからこれがわかることがある．
 \item[カメラとマイクの個数]JavaScriptにより端末に存在するカメラとマイクそれぞれの個数を取得できる~\cite{takasu2015survey}．また，それぞれのカメラとマイク割り当てられた256bitの識別子も取得できる．この識別子はブラウザにおいてHTTPクッキーを削除すると同時に変更される．
-\item[GPU]ブラウザ上で3Dグラフィックスを描画するWebGL APIを用いて3Dモデルや文字列を描画した際，同じ内容を描画した場合でも出力される画像には画素レベルの誤差が生じることがある．この誤差はOS，ブラウザやグラフィックボードの組み合わせに依存する．また，一部のブラウザではJavaScriptからGPUの種類を採取することができる~\cite{mowery2012pixel}．
+\item[GPU]ブラウザ上で3Dグラフィックスを描画するWebGL~\cite{webgl,webgl_2}を用いて3Dモデルや文字列を描画した際，同じ内容を描画した場合でも出力される画像には画素レベルの誤差が生じることがある．この誤差はOS，ブラウザやグラフィックボードの組み合わせに依存する．また，一部のブラウザではJavaScriptからGPUの種類を採取することができる~\cite{mowery2012pixel}．
 \item[バッテリー]JavaScriptによりスマートフォンやノートパソコンに搭載されたバッテリーの残量，バッテリーの充電完了までの残り時間，バッテリーが利用できる残り時間，充電状況をそれぞれ取得可能である~\cite{takasu2015survey}．さらに，Diazら~\cite{diaz2015leaking}は，これらの情報を用いることでバッテリー容量を推定する手法を提案したが，現在ではAPIが廃止され対策がとられている．
 
 \end{description}
@@ -96,7 +96,7 @@ Fingerprintingの利用法として3つ紹介する．
 ウェブサイトのURLが変更された場合は機能しなくなるというデメリットも存在する．
 また，ブラックリストを採用しているソフトウェアが一般的だが，網羅的なリストが必要となる．
 スクリプトのブロックに用いるリストの種類やブロックの有無が特徴点になることが指摘されている．
-GoogleのSafeBrowsing APIやTracking Protectionはブラックリストを用いてトラッキングを行うウェブサイトが検出する．
+GoogleのSafeBrowsing\footnote{詐欺サイトやマルウェアに関するサイトをブロックするChromeのデフォルト機能．\url{https://safebrowsing.google.com/}}やMozillaのTracking Protection\footnote{Disconnect社から提供されるリスト\url{https://disconnect.me/trackerprotection}をもとに行動追跡を識別し，ブロックする．\url{https://support.mozilla.org/en-US/kb/tracking-protection}}はブラックリストを用いてトラッキングを行うウェブサイトを検出する．
 
 Ghostery~\cite{Ghostery}は，トラッキングをドメインベースで検知するブラウザの拡張機能である．
 ビーコンやアクセス解析も含め，様々な手法でトラッキングを行う2,000以上のドメインが手法別に分類されている．
@@ -129,7 +129,7 @@ FP Guard~\cite{faizkhademi2015fpguard}は，Webサイトをクローリングし
 
 Blink~\cite{blink}は，Fingerprintingの対策に特化したツールである．プラグイン，フォント，OS，ブラウザの4つの特徴点を様々に組み合わせた仮想マシンを用意し，ブラウジングごとに変更することでFingerprintのランダム化を実現している．ただし，仮想マシンごとに6GBのディスク容量が必要となるので利便性は劣る．
 
-Torブラウザ~\cite{tor}は，様々な方法でFingerprintingを防止している．IPアドレスの偽装\footnote{厳密にはOnionルータがプロキシとして機能している}やFlash，プラグインの無効化，タイムゾーン，User-Agent文字列の変更などを実施している．さらに，Canvas Fingerprintingに用いられるCanvas APIをフックし，実行を阻止する．
+Torブラウザ~\cite{tor}は，様々な方法でFingerprintingを防止している．IPアドレスの偽装\footnote{厳密にはOnionルータがプロキシとして機能している}やFlash，プラグインの無効化，タイムゾーン，User-Agent文字列の変更などを実施している．さらに，Canvas Fingerprintingに用いられるCanvasをフックし，実行を阻止する．
 
 Nikiforakis~\cite{nikiforakis2015privaricator}らは，PriVaricatorと呼ばれる対策技術を提案した．
 PriVaricatorは，プラグインやフォントなどのFingerprintをランダム化することによって対策を行う．

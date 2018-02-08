@@ -16,17 +16,17 @@ Nikiforakisら~\cite{nikiforakis2013cookieless}は，Fingerprintingを利用し�
 
 Mulazzaniら~\cite{mulazzani2013fast}は，JavaScriptエンジンの実装状況を利用しブラウザの識別を行った．test262と呼ばれるテストスイートを用いて，ブラウザファミリとバージョンを判別している．
 
-Moweryら~\cite{mowery2012pixel}は，HTML5のCanvas APIやWebGLを用いて文字列や画像を描画し，描画結果の画素レベルの差からグラフィックボードなどの情報を抽出した．これはGPU，OS，ブラウザの組合せによって変化する．300個のサンプルを収集した際のエントロピーは，5.73ビットとある．
+Moweryら~\cite{mowery2012pixel}は，HTML5のCanvasやWebGLを用いて文字列や画像を描画し，描画結果の画素レベルの差からグラフィックボードなどの情報を抽出した．これはGPU，OS，ブラウザの組合せによって変化する．300個のサンプルを収集した際のエントロピーは，5.73ビットとある．
 
 Bojinovら~\cite{bojinov2014mobile}は，2種類のFingerprintingを提案した．スピーカーフォンまたはマイクの周波数応答を利用するFingerprinting，端末の加速度センサーのエラーに依存するFingerprintingの2種類である．User Agent文字列と組み合わせることで，53％の精度で1900の端末を識別できることを示した．
 
 Nmap~\cite{nmap}やp0f~\cite{p0f}に代表されるツールはTCP/IPにおいてパケットを解析することでOSを推定する．これは特にOS Fingerprintingと呼ばれている．また，JavaScriptのMathオブジェクトを利用してOSが推定できることも報告されている~\cite{tor_bugtrack}．
 
-Nakiblyら~\cite{nakibly2015hardware}は，HTML5のAPIからアクセスできるハードウェアに関して調査した．さらに，WebGLを用いてブラウザ上で図形を描画しGPUのクロックレートとクロックスキューを採取する初めての試みを実施した．その結果，同一構成の異なる端末においても違いが発生し，GPUパフォーマンスを採取するにはソフトウェアの影響を取り除く必要性があると述べている．また，HTML5 APIからアクセスできるハードウエア情報をまとめ，GPU，カメラ，スピーカーやマイク，モーションセンサー，GPS，バッテリーを用いたFingerprintingについて紹介している．
+Nakiblyら~\cite{nakibly2015hardware}は，HTML5のAPIからアクセスできるハードウェアに関して調査した．さらに，WebGLを用いてブラウザ上で図形を描画しGPUのクロックレートとクロックスキューを採取する初めての試みを実施した．その結果，同一構成の異なる端末においても違いが発生し，GPUパフォーマンスを採取するにはソフトウェアの影響を取り除く必要性があると述べている．また，JavaScript APIからアクセスできるハードウエア情報をまとめ，GPU，カメラ，スピーカーやマイク，モーションセンサー，GPS，バッテリーを用いたFingerprintingについて紹介している．
 
 後藤ら~\cite{後藤浩行2013web}は，CPUのコア数，GPUレンダリングの有無，メディアデバイスの有無や，タブレット端末の表示向きといった複数のハードウエア情報をFingerprintingで採取できることを示した．
 
-桐生らは，演算結果の差によってCPUの拡張命令であるSSE2への対応の有無が特定できることを示した~\cite{桐生直輝2013cpu}．また，Web Worker APIを用いてマルチスレッド処理を行い演算速度の差を測定することでCPUコア数が推定できることを示した~~\cite{桐生直輝2014web}．
+桐生らは，演算結果の差によってCPUの拡張命令であるSSE2への対応の有無が特定できることを示した~\cite{桐生直輝2013cpu}．また，Web Workersを用いてマルチスレッド処理を行い演算速度の差を測定することでCPUコア数が推定できることを示した~~\cite{桐生直輝2014web}．
 
 Saitoらは，JavaScriptのベンチマークを詳細に分析し，CPUの機能のTurbo BoostとCPUの拡張命令のAES-NIの推定手法を提案した~\cite{saito2016estimating}．
 また，CPUの識別手法も提案し，モデルナンバーを91.4\%の精度で識別できると示した~\cite{saito2017web}．
