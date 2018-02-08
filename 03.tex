@@ -7,7 +7,7 @@ Browser Fingerprintingの説明に関わる以下の用語について定義す�
  \item Fingerprinting
  \item 特徴点
 \end{itemize}
-RFC 6973~\cite{rfc6973}では，Fingerprintを以下の通り定義している．
+RFC 6973\cite{rfc6973}では，Fingerprintを以下の通り定義している．
 \begin{quote}
 A set of information elements that identifies a device or application instance.
 \end{quote}
@@ -35,44 +35,44 @@ The process of an observer or attacker uniquely identifying (with a sufficiently
   \item[拡張機能]拡張機能はブラウザの機能を追加するためのプログラムである．ブラウザベンダによってはアドオンとも呼ばれる．広告の遮断やセキュリティの向上などブラウザの機能性を向上させる目的で利用されている．拡張機能の中には，攻撃コードの削除や広告の遮断のためにウェブページの改変を行うものがあり，この改変を検知することで，JavaScriptから特定の拡張機能の有無を推定することができる．
   \item[プラグイン]プラグインはブラウザの機能を拡張するためのプログラムのことである．FlashやJava Appletを再生，実行するためにインストールされる．端末にインストールされたプラグインの情報はJavaScriptから採取することができる．この情報にはプラグインの名前のほか，バージョンやファイル名が含まれる．なお，2018年現在はJava Appletはメジャーブラウザでの利用ができず，Flashについても一部のサイトを残し，順次利用ができなくなるように変更が行われている．2020年にはブラウザにおけるFlashのサポートが終了される見込みである．
   \item[MIMEタイプ]MIMEタイプはデータの種類を表すためのラベルである．WebサーバはレスポンスヘッダにMIMEタイプを含めることによりレスポンスするデータの種類をブラウザに伝えることができる．ブラウザが認識するMIMEタイプはJavaScriptから採取することができ，プラグインのインストールによりその種類が増えることがある．
-  \item[インストール済みフォント]端末にインストールされたフォントはOSの種類やバージョンによって異なる．また，アプリケーションをインストールした際に追加される場合や利用者がフォントのファイルを追加する場合もある．JavaScriptとCSSを利用する方法をコード~\ref{installed_font}に示す~\footnote{本論文の著者が作成したライブラリがGithubとnpmで公開されている．\url{https://github.com/orleika/available-fonts}}．
-  
-\lstinputlisting[caption=インストール済みフォントの採取コード,label=installed_font,language=JavaScript]{code/font.js}
+  \item[インストール済みフォント]端末にインストールされたフォントはOSの種類やバージョンによって異なる．また，アプリケーションをインストールした際に追加される場合や利用者がフォントのファイルを追加する場合もある．JavaScriptとCSSを利用する方法をコード~\ref{installed_font}に示す\footnote{本論文の著者が作成したライブラリがGithubとnpmで公開されている．\url{https://github.com/orleika/available-fonts}}．
+
+\lstinputlisting[caption=インストール済みフォント採取コード,label=installed_font,language=JavaScript]{code/font.js}
 
 \item[ブラウザの言語設定]ブラウザはリクエストヘッダに利用可能な言語のリストと優先度を含めWebサーバに送信する．利用可能な言語とその優先度はユーザがブラウザの設定によって変更する．言語設定はリクエストヘッダのほかJavaScriptの\texttt{navigator.language}から採取できる．
 \item[タイムゾーン]端末に設定されたタイムゾーンはJavaScriptの\texttt{new Date().getTimezoneOffset()}から採取可能である．
-\item[HTTP Cookieの利用可否]HTTP Cookieはブラウザの設定により，拒否することが可能である．ブラウザによってはサードパーティークッキーのみを拒否することも可能である．HTTP Cookieが利用できるか否かはJavaScriptの\texttt{navigator.cookieEnabled}から確認できる~\footnote{ブラウザによってはこのプロパティに既知のバグが存在するので，\texttt{document.cookie}に値を書き込み，値が保存されるかを観察したほうが良い．}．
-\item[Web Storageの利用可否]ブラウザにはWeb Storageとよばれる，JavaScriptを用いてブラウザにデータを保存するAPIがある．厳密にはWeb Storageはインターフェースであり，実体はlocalStorageやsessionStorageの保存期間に差異があるAPIを用いて読み書きを行う．Web StorageはHTTP Cookieと同様にトラッキングに利用される場合があり，ブラウザの設定で利用を制限することができる．Web Storageの利用可否はJavaScriptから実体のオブジェクトを用いて読み書きを行うことで確認できる．
+\item[HTTP Cookieの利用可否]HTTP Cookieはブラウザの設定により，拒否することが可能である．ブラウザによってはサードパーティークッキーのみを拒否することも可能である．HTTP Cookieが利用できるか否かはJavaScriptの\texttt{navigator.cookieEnabled}から確認できる\footnote{ブラウザによってはこのプロパティに既知のバグが存在するので，\texttt{document.cookie}に値を書き込み，値が保存されるかを観察したほうが良い．}．
+\item[Web Storageの利用可否]ブラウザにはWeb Storage APIとよばれる，JavaScriptを用いてブラウザにデータを保存するAPIがある．厳密にはWeb Storageはインターフェースであり，実体はlocalStorageやsessionStorageの保存期間に差異があるAPIを用いて読み書きを行う．Web StorageはHTTP Cookieと同様にトラッキングに利用される場合があり，ブラウザの設定で利用を制限することができる．Web Storageの利用可否はJavaScriptから実体のオブジェクトを用いて読み書きを行うことで確認できる．
 \item[JavaScriptの実装状況]ブラウザファミリ（JavaScriptエンジン）により，Ecma-262への準拠しているかの実装状況に差異がある．このことからブラウザの設定などによりUser-Agent文字列が書き換えられた場合でも，JavaScriptの実装状況からブラウザファミリやそのバージョンを推定できる．
 \item[CSSの実装状況]CSSの実装状況はブラウザファミリにより異なる．JavaScriptと同様にブラウザの設定などによりUser-Agent文字列などが書き換えられた場合でも，CSSの実装状況からブラウザファミリやそのバージョンの推定を推定できる．
-\item[ブラウザの表示領域]ブラウザのコンテンツ表示領域~\footnote{ビューポートともいう．}のサイズはJavaScriptの\texttt{window.outerHeight}と\texttt{window.outerHeight}で採取できる．また，ブラウザの外観のサイズはJavaScriptの\texttt{window.innerHeight}と\texttt{window.innerHeight}で採取できる．これらを組み合わせることにより``戻る''，``進む''ボタンやアドレスバーなどのカスタマイズ可能なブラウザのUI部分のサイズが計算でき，この値を元にブラウザファミリやブックマークの表示有無などの推定が可能である．
+\item[ブラウザの表示領域]ブラウザのコンテンツ表示領域\footnote{ビューポートともいう．}のサイズはJavaScriptの\texttt{window.outerHeight}と\texttt{window.outerHeight}で採取できる．また，ブラウザの外観のサイズはJavaScriptの\texttt{window.innerHeight}と\texttt{window.innerHeight}で採取できる．これらを組み合わせることにより``戻る''，``進む''ボタンやアドレスバーなどのカスタマイズ可能なブラウザのUI部分のサイズが計算でき，この値を元にブラウザファミリやブックマークの表示有無などの推定が可能である．
 \item[その他のリクエストヘッダ]Accept-Charset，Accept-Language，Origin，Connectionヘッダなどのヘッダはブラウザファミリにより存在しない場合や値が異なる場合がある．また，Refererヘッダは一部のアンチウイルスソフトなどによって削除される場合がある．
-\item[TCP/IPヘッダ]IPパケットの初期TTL，TCPパケットのウインドウサイズ，TCPオプションなどはOSファミリやそのバージョンにより異なる．これらの特徴から受動的に接続元端末のOSの種類やバージョンを推定するPassive OS Fingerprintingと呼ばれる手法がある．代表的なツールとしてp0f~\cite{p0f}がある．
-\item[SSL/TLSヘッダ]TLSハンドシェイクにおけるClient HelloはOS，ブラウザごとに異なることがある．Hus{\'a}kら~\cite{husak2016https}はこれらの情報をもとにOSやブラウザを推定する手法を提案した．
-\item[Canvas Fingeprint]ブラウザ上で2Dビットマップ画像の描画を行うCanvas APIを利用することで，描画誤差によるFingerprintを採取できる．これは，Moweryら~\cite{mowery2012pixel}によって提案され，Canvas Fingerprintと呼ばれる．OS，ブラウザのバージョン，デバイスピクセル比など複数の条件に起因して値が変わるが，Canvas FingerprintとUser-Agent文字列を対応させることで，Canvas FingerprintからOSとブラウザのバージョンを推定することができる．
+\item[TCP/IPヘッダ]IPパケットの初期TTL，TCPパケットのウインドウサイズ，TCPオプションなどはOSファミリやそのバージョンにより異なる．これらの特徴から受動的に接続元端末のOSの種類やバージョンを推定するPassive OS Fingerprintingと呼ばれる手法がある．代表的なツールとしてp0f\cite{p0f}がある．
+\item[SSL/TLSヘッダ]TLSハンドシェイクにおけるClient HelloはOS，ブラウザごとに異なることがある．Hus{\'a}kら\cite{husak2016https}はこれらの情報をもとにOSやブラウザを推定する手法を提案した．
+\item[Canvas Fingeprint]ブラウザ上で2Dビットマップ画像の描画を行うCanvas APIを利用することで，描画誤差によるFingerprintを採取できる．これは，Moweryら\cite{mowery2012pixel}によって提案され，Canvas Fingerprintと呼ばれる．OS，ブラウザのバージョン，デバイスピクセル比など複数の条件に起因して値が変わるが，Canvas FingerprintとUser-Agent文字列を対応させることで，Canvas FingerprintからOSとブラウザのバージョンを推定することができる．
 \end{description}
 \subsubsection{ネットワーク特徴点}
 ネットワーク特徴点は端末が接続するネットワーク構成や設定によって変化する特徴点である．
 \begin{description}
-\item[グローバルIPアドレス]グローバルIPアドレスはHTTPリクエストの送信元IPアドレスである．同じ端末からのアクセスでもグローバルIPアドレスが変化する場合がある．また，通信路上のNAPT~\footnote{Network Address Port Translation}を行うルータにより1つのグローバルIPアドレスを複数の端末で利用される場合がある．さらに，キャッシュ目的にプロキシを用いている場合はWebサーバが採取できるIPアドレスはプロキシのものとなる．モバイル向けに通信負荷を低減させる目的からプロキシを用いる~\footnote{Opera MiniではOBMLと呼ばれるプロキシ経由の圧縮技術が実装されている．\url{https://dev.opera.com/articles/opera-binary-markup-language/}}場合が増えており注意すべきである．以上のことからグローバルIPアドレスのみでの端末識別は困難である．
-\item[プライベートIPアドレス]多くのネットワークではNAPTにより1つのグローバルIPアドレスが複数の端末で利用されている．この場合，各端末にそのネットワーク内でのみ有効なプライベートIPアドレスが割り当てられている．プライベートIPアドレスはWebRTC APIにより取得が可能である~\cite{細井理央2015ブラウザが属するネットワークの情報を採取する} ．
-\item[LAN内に存在する端末のIPアドレス]LANには複数の端末が存在する場合が多い．これらのIPアドレスはIMG要素やXHRを用いた方法により検出が可能である~\cite{細井理央2015ブラウザが属するネットワークの情報を採取する} ．
+\item[グローバルIPアドレス]グローバルIPアドレスはHTTPリクエストの送信元IPアドレスである．同じ端末からのアクセスでもグローバルIPアドレスが変化する場合がある．また，通信路上のNAPT\footnote{Network Address Port Translation}を行うルータにより1つのグローバルIPアドレスを複数の端末で利用される場合がある．さらに，キャッシュ目的にプロキシを用いている場合はWebサーバが採取できるIPアドレスはプロキシのものとなる．モバイル向けに通信負荷を低減させる目的からプロキシを用いる\footnote{Opera MiniではOBMLと呼ばれるプロキシ経由の圧縮技術が実装されている．\url{https://dev.opera.com/articles/opera-binary-markup-language/}}場合が増えており注意すべきである．以上のことからグローバルIPアドレスのみでの端末識別は困難である．
+\item[プライベートIPアドレス]多くのネットワークではNAPTにより1つのグローバルIPアドレスが複数の端末で利用されている．この場合，各端末にそのネットワーク内でのみ有効なプライベートIPアドレスが割り当てられている．プライベートIPアドレスはWebRTC APIにより取得が可能である\cite{細井理央2015ブラウザが属するネットワークの情報を採取する} ．
+\item[LAN内に存在する端末のIPアドレス]LANには複数の端末が存在する場合が多い．これらのIPアドレスはIMG要素やXHRを用いた方法により検出が可能である\cite{細井理央2015ブラウザが属するネットワークの情報を採取する} ．
 \end{description}
 \subsubsection{ハードウェア特徴点}
 ハードウェア特徴点は端末のハードウェア構成やその設定によって変化する特徴点である．
 \begin{description}
 \item[画面解像度および色深度]JavaScriptの\texttt{window.screen}により画面解像度，\texttt{window.colorDepth}により色深度を採取できる．また，JavaScriptを使用せずCSSのみでこれらの情報を採取することもできる．
-\item[画面のリフレッシュレート]リフレッシュレートとは単位時間あたりの画面の再描画回数である．一般的な液晶ディスプレイのリフレッシュレートは60Hzであるが，120Hzや144Hzのディスプレイも存在する．リフレッシュレートはJavaScriptにより計測可能である~\cite{takasu2015survey} ．
+\item[画面のリフレッシュレート]リフレッシュレートとは単位時間あたりの画面の再描画回数である．一般的な液晶ディスプレイのリフレッシュレートは60Hzであるが，120Hzや144Hzのディスプレイも存在する．リフレッシュレートはJavaScriptにより計測可能である\cite{takasu2015survey} ．
 \item[タッチ機能の有無]スマートフォンや一部のPCのディスプレイはタッチ入力を受け付けるものがある．JavaScriptの\texttt{navigator.maxTouchPoints}により最大同時タッチ数が採取できる．タッチ入力のブラウザが動作する端末の場合この値が1以上になる．
 \item[画面の向き]スマートフォンやタブレット端末では縦や横に画面の向きを切り替えて使用することができる．JavaScriptの\texttt{screen.orientation.type}から4方向の向きを採取することができる．
-\item[デバイスピクセル比]デバイスピクセル比とはCSSで指定するピクセルサイズと実際に画面に描画されるピクセルサイズの比である．Retinaディスプレイ~\footnote{Appleの製品における高画素密度のディスプレイを指す．RetinaはAppleが商標権を獲得している．}を搭載するiPhoneやiPadではこの値が2となる．Android端末では機種により異なる値を取る．デバイスピクセル比はJavaScriptの\texttt{window.devicePixelRatio}により採取する方法やCSSのみで取得する方法もある~\cite{takei2015web}． 
-\item[ハードディスクの空き容量]端末のハードディスクの空き容量はJavaScriptを利用した方法により採取することができる~\cite{takasu2015survey}．この上限値は，ハードディスク空き容量を約1MB以内の誤差で推定可能な値となる．
-\item[CPU]JavaScriptによるベンチマークによりCPUファミリやモデルナンバーが推定できる~\cite{saito2017web}．
-\item[CPUコア数]CPUのコア数はJavaScriptのWeb Worker APIを利用することで推定が可能である~\cite{桐生直輝2014web}．CPUの論理コア数のみを採取する場合はJavaScriptで\texttt{navigator.hardwareConcurrency}を参照する．
-\item[AES-NIの対応の有無]AES-NI~\footnote{Advanced Encryption Standard New Instructions}は暗号化アルゴリズムであるAESの暗号化処理を高速化させるためのCPU拡張命令である．AESの暗号化処理にかかる時間を計測することでAES-NIの対応有無を推定することができる~\cite{saito2016estimating}．また，一部の端末とブラウザファミリではTLSの暗号スイートからこれがわかることがある．
-\item[カメラとマイクの個数]JavaScriptにより端末に存在するカメラとマイクそれぞれの個数を取得できる~\cite{takasu2015survey}．また，それぞれのカメラとマイク割り当てられた256bitの識別子も取得できる．この識別子はブラウザにおいてHTTPクッキーを削除すると同時に変更される．
-\item[GPU]ブラウザ上で3Dグラフィックスを描画するWebGL APIを用いて3Dモデルや文字列を描画した際，同じ内容を描画した場合でも出力される画像には画素レベルの誤差が生じることがある．この誤差はOS，ブラウザやグラフィックボードの組み合わせに依存する．また，一部のブラウザではJavaScriptからGPUの種類を採取することができる~\cite{mowery2012pixel}．
-\item[バッテリー]JavaScriptによりスマートフォンやノートパソコンに搭載されたバッテリーの残量，バッテリーの充電完了までの残り時間，バッテリーが利用できる残り時間，充電状況をそれぞれ取得可能である~\cite{takasu2015survey}．さらに，Diazら~\cite{diaz2015leaking}は，これらの情報を用いることでバッテリー容量を推定する手法を提案したが，現在ではAPIが廃止され対策がとられている． 
+\item[デバイスピクセル比]デバイスピクセル比とはCSSで指定するピクセルサイズと実際に画面に描画されるピクセルサイズの比である．Retinaディスプレイ\footnote{Appleの製品における高画素密度のディスプレイを指す．RetinaはAppleが商標権を獲得している．}を搭載するiPhoneやiPadではこの値が2となる．Android端末では機種により異なる値を取る．デバイスピクセル比はJavaScriptの\texttt{window.devicePixelRatio}により採取する方法やCSSのみで取得する方法もある\cite{takei2015web}．
+\item[ハードディスクの空き容量]端末のハードディスクの空き容量はJavaScriptを利用した方法により採取することができる\cite{takasu2015survey}．この上限値は，ハードディスク空き容量を約1MB以内の誤差で推定可能な値となる．
+\item[CPU]JavaScriptによるベンチマークによりCPUファミリやモデルナンバーが推定できる\cite{saito2017web}．
+\item[CPUコア数]CPUのコア数はJavaScriptのWeb Worker APIを利用することで推定が可能である\cite{桐生直輝2014web}．CPUの論理コア数のみを採取する場合はJavaScriptで\texttt{navigator.hardwareConcurrency}を参照する．
+\item[AES-NIの対応の有無]AES-NI\footnote{Advanced Encryption Standard New Instructions}は暗号化アルゴリズムであるAESの暗号化処理を高速化させるためのCPU拡張命令である．AESの暗号化処理にかかる時間を計測することでAES-NIの対応有無を推定することができる\cite{saito2016estimating}．また，一部の端末とブラウザファミリではTLSの暗号スイートからこれがわかることがある．
+\item[カメラとマイクの個数]JavaScriptにより端末に存在するカメラとマイクそれぞれの個数を取得できる\cite{takasu2015survey}．また，それぞれのカメラとマイク割り当てられた256bitの識別子も取得できる．この識別子はブラウザにおいてHTTPクッキーを削除すると同時に変更される．
+\item[GPU]ブラウザ上で3Dグラフィックスを描画するWebGL APIを用いて3Dモデルや文字列を描画した際，同じ内容を描画した場合でも出力される画像には画素レベルの誤差が生じることがある．この誤差はOS，ブラウザやグラフィックボードの組み合わせに依存する．また，一部のブラウザではJavaScriptからGPUの種類を採取することができる\cite{mowery2012pixel}．
+\item[バッテリー]JavaScriptによりスマートフォンやノートパソコンに搭載されたバッテリーの残量，バッテリーの充電完了までの残り時間，バッテリーが利用できる残り時間，充電状況をそれぞれ取得可能である\cite{takasu2015survey}．さらに，Diazら\cite{diaz2015leaking}は，これらの情報を用いることでバッテリー容量を推定する手法を提案したが，現在ではAPIが廃止され対策がとられている．
 
 \end{description}
 \subsection{利用法}
@@ -81,7 +81,7 @@ Fingerprintingの利用法として3つ紹介する．
 一つは，インターネット広告における利用である．
 インターネット上でのユーザの行動追跡を行うことで趣味嗜好を分析し，適切な広告を配信するターゲティング広告は代表的な用途である．さらに，成功報酬型広告の不正対策としても用いられることがある．
 
-次に挙げられるものとしてはリスクベース認証での利用である．OpenAM~\footnote{\url{https://www.forgerock.com/products/access-management}}ではログイン時にFingerprintを採取し，以前のログイン時のFingerprintと大きく異なるFingerprintを採取した際にはなりすましと判断している．
+次に挙げられるものとしてはリスクベース認証での利用である．OpenAM\footnote{\url{https://www.forgerock.com/products/access-management}}ではログイン時にFingerprintを採取し，以前のログイン時のFingerprintと大きく異なるFingerprintを採取した際にはなりすましと判断している．
 
 最後に，将来的に考えられる用途としては，サイバー犯罪の証拠としての利用が挙げられる．この実現にはFalse Positiveを低く抑え，高い精度であることが求められる．
 \subsection{対策手法}
@@ -98,22 +98,22 @@ Fingerprintingの利用法として3つ紹介する．
 スクリプトのブロックに用いるリストの種類やブロックの有無が特徴点になることが指摘されている．
 GoogleのSafeBrowsing APIやTracking Protectionはブラックリストを用いてトラッキングを行うウェブサイトが検出する．
 
-Ghostery~\cite{Ghostery}は，トラッキングをドメインベースで検知するブラウザの拡張機能である．
+Ghostery\cite{Ghostery}は，トラッキングをドメインベースで検知するブラウザの拡張機能である．
 ビーコンやアクセス解析も含め，様々な手法でトラッキングを行う2,000以上のドメインが手法別に分類されている．
 Fingerprintingを利用しているWebサイトもリスト化されており遮断することができる．
 
-AdblockPlus~\cite{acar2014web}は，リストに設定されているURLを元にHTTP通信の制御を行う，ブラウザの拡張機能である．AdBlock Plusに適切なリストを設定することで，閲覧するWebサイト上で行われるCanvas Fingerprintingの大部分を遮断できたという研究結果もある．
+AdblockPlus\cite{acar2014web}は，リストに設定されているURLを元にHTTP通信の制御を行う，ブラウザの拡張機能である．AdBlock Plusに適切なリストを設定することで，閲覧するWebサイト上で行われるCanvas Fingerprintingの大部分を遮断できたという研究結果もある．
 
 NoScriptは，新しいページを読み込むときに，ホワイトリストを基にJavaScriptやFlashを実行するか決定する．
 JavaScriptやFlashが無効化されると，これらを使用したFingerprintingは不可能になる．
-一方で，2018年のデータによると~\cite{javascript_usage}，すべてのウェブサイトの94.9％がJavaScriptasを使用しているため，ウェブサイトのデザインへの影響が大きい．
+一方で，2018年のデータによると\cite{javascript_usage}，すべてのウェブサイトの94.9％がJavaScriptasを使用しているため，ウェブサイトのデザインへの影響が大きい．
 \subsubsection{トラッキングの拒否}
 ブラウザはトラッキング拒否のトークンを送信できる．
 この対策は楽観的で，ウェブサイトがトークンを受け入れない限りは意味をなさない．
-2011年に仕様化されたDNT~\cite{dnt}は，すべてのメジャーブラウザで実装されている．
+2011年に仕様化されたDNT\cite{dnt}は，すべてのメジャーブラウザで実装されている．
 ブラウザでDNTが有効の場合，HTTPヘッダーのDNTというフィールドが1になる．
 これはサーバ側がトラッキングすることの拒否を意味する．
-しかし，Acarら~\cite{acar2013fpdetective}の研究によると，DNTはFingerprintingを実施しているウェブサイトには有効ではない．
+しかし，Acarら\cite{acar2013fpdetective}の研究によると，DNTはFingerprintingを実施しているウェブサイトには有効ではない．
 \subsubsection{Fingerprintの低減}
 Fingerprintは特徴点の集合であることは先に示した．Fingerprintingの対策には，Fingerprintの採取を防ぐか，Fingerprintを偽装することが挙げられる．
 ここで，Fingerprintの偽装は矛盾なく行う必要がある．
@@ -121,20 +121,20 @@ Fingerprintは特徴点の集合であることは先に示した．Fingerprinti
 これらの特徴点の偽装に矛盾が生じると，それが逆にFingerprintingに用いられる可能性が生じる．
 次に実用的にFingerprintingの対策を行うツールについて紹介する．
 
-Firegloves~\cite{firegloves}はFirefoxの拡張機能で，Fingerprintのいずれかを書き換えることでFingerprintingを防ぐ．
+Firegloves\cite{firegloves}はFirefoxの拡張機能で，Fingerprintのいずれかを書き換えることでFingerprintingを防ぐ．
 
-Chameleon~\cite{chamereon}はChromeの拡張機能で，Fingerprint（window.navigatoror，window.screenの値）の採取を防ぐ．
+Chameleon\cite{chamereon}はChromeの拡張機能で，Fingerprint（window.navigatoror，window.screenの値）の採取を防ぐ．
 
-FP Guard~\cite{faizkhademi2015fpguard}は，Webサイトをクローリングし，そこから得られたFingerprintingの傾向や頻度をもとに，ランダム化する特徴点を選択することでユーザビリティに配慮した対策手法である．データをもとに調整されるのでより現実的な対策となるが，定期的なデータベースの更新が必要となるので，実装は公開されていない．
+FP Guard\cite{faizkhademi2015fpguard}は，Webサイトをクローリングし，そこから得られたFingerprintingの傾向や頻度をもとに，ランダム化する特徴点を選択することでユーザビリティに配慮した対策手法である．データをもとに調整されるのでより現実的な対策となるが，定期的なデータベースの更新が必要となるので，実装は公開されていない．
 
-Blink~\cite{blink}は，Fingerprintingの対策に特化したツールである．プラグイン，フォント，OS，ブラウザの4つの特徴点を様々に組み合わせた仮想マシンを用意し，ブラウジングごとに変更することでFingerprintのランダム化を実現している．ただし，仮想マシンごとに6GBのディスク容量が必要となるので利便性は劣る．
+Blink\cite{blink}は，Fingerprintingの対策に特化したツールである．プラグイン，フォント，OS，ブラウザの4つの特徴点を様々に組み合わせた仮想マシンを用意し，ブラウジングごとに変更することでFingerprintのランダム化を実現している．ただし，仮想マシンごとに6GBのディスク容量が必要となるので利便性は劣る．
 
-Torブラウザ~\cite{tor}は，様々な方法でFingerprintingを防止している．IPアドレスの偽装~\footnote{厳密にはOnionルータがプロキシとして機能している}やFlash，プラグインの無効化，タイムゾーン，User-Agent文字列の変更などを実施している．さらに，Canvas Fingerprintingに用いられるCanvas APIをフックし，実行を阻止する．
+Torブラウザ\cite{tor}は，様々な方法でFingerprintingを防止している．IPアドレスの偽装\footnote{厳密にはOnionルータがプロキシとして機能している}やFlash，プラグインの無効化，タイムゾーン，User-Agent文字列の変更などを実施している．さらに，Canvas Fingerprintingに用いられるCanvas APIをフックし，実行を阻止する．
 
-Nikiforakis~\cite{nikiforakis2015privaricator}らは，PriVaricatorと呼ばれる対策技術を提案した．
+Nikiforakis\cite{nikiforakis2015privaricator}らは，PriVaricatorと呼ばれる対策技術を提案した．
 PriVaricatorは，プラグインやフォントなどのFingerprintをランダム化することによって対策を行う．
 これによりFingerprintingの対策が行えるが，Alexa Top 1000サイトの0.7％にデザインに関する副作用が生じる．
 
-FP-Block~\cite{torres2015fp}は，ランダムに偽装されたFingerprintを作成する．ドメインごとに固定のFingerprintを生成することで，サードパーティによるトラッキングを防ぐことができる．
+FP-Block\cite{torres2015fp}は，ランダムに偽装されたFingerprintを作成する．ドメインごとに固定のFingerprintを生成することで，サードパーティによるトラッキングを防ぐことができる．
 
-Privacy Badger~\cite{privacybadger}は，EFFにより作成されたブラウザの拡張機能である．サードパーティのJavaScriptやHTTPクッキーが利用されている場合に検知しブロックすることができる，また，Canvas Fingerprintを検知することができる．
+Privacy Badger\cite{privacybadger}は，EFFにより作成されたブラウザの拡張機能である．サードパーティのJavaScriptやHTTPクッキーが利用されている場合に検知しブロックすることができる，また，Canvas Fingerprintを検知することができる．

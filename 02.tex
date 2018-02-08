@@ -1,19 +1,19 @@
 \newpage
 \section{関連技術}
 \subsection{World Wide Web}
-World Wide Webはインターネット上で提供されるハイパーテキストシステムである．以降，Webと表記した場合はWorld Wide Webを指すものとする．Webはクライアントサーバモデルに基づくシステムであり，WebにアクセスするためのユーザエージェントとWebサーバがHTTP通信を行うことにより実現される．ユーザエージェントにはいくつか種類があるが，利用者による閲覧を目的としたものは特にWebブラウザと呼ばれている．Web上にあるドキュメントの記述には主にHTML~\footnote{Hypertext Markup Language}が用いられる．このWeb上のドキュメントをWebページと呼ぶ．
+World Wide Webはインターネット上で提供されるハイパーテキストシステムである．以降，Webと表記した場合はWorld Wide Webを指すものとする．Webはクライアントサーバモデルに基づくシステムであり，WebにアクセスするためのユーザエージェントとWebサーバがHTTP通信を行うことにより実現される．ユーザエージェントにはいくつか種類があるが，利用者による閲覧を目的としたものは特にWebブラウザと呼ばれている．Web上にあるドキュメントの記述には主にHTML\footnote{Hypertext Markup Language}が用いられる．このWeb上のドキュメントをWebページと呼ぶ．
 
 Webブラウザが，あるWebページへアクセスした際の基本的なフローを以下に示す．HTTPに関する詳細については後に紹介する．
 
 \begin{enumerate}
 \item WebブラウザはWebサーバにWebページを要求するためのHTTPリクエストを送信する．
 \item Webサーバは受け取ったHTTPリクエストを元に要求内容を解析し，要求されたデータをHTTPレスポンスとしてWebブラウザに返す．
-\item WebブラウザはHTTPレスポンスに含まれるHTMLを解析する．HTMLデータの解析は上から順に解析され，外部リソースを読み込む記述があると，基本的には逐次HTTPリクエストを送信し~\footnote{例えば，scriptタグにdefer属性を付与すると，DOMツリーの構築が終了してからリソースを取得する．詳しくは\url{https://html.spec.whatwg.org/multipage/scripting.html\#attr-script-async}を参照されたい．}取得する．
+\item WebブラウザはHTTPレスポンスに含まれるHTMLを解析する．HTMLデータの解析は上から順に解析され，外部リソースを読み込む記述があると，基本的には逐次HTTPリクエストを送信し\footnote{例えば，scriptタグにdefer属性を付与すると，DOMツリーの構築が終了してからリソースを取得する．詳しくは\url{https://html.spec.whatwg.org/multipage/scripting.html\#attr-script-async}を参照されたい．}取得する．
 \item WebブラウザはHTMLやCSS，JavaScript，画像などのリソースの解析が完了すると，Webページを描画する．
 \end{enumerate}
 
 \subsection{URL}
-インターネット上のリソースはURL~\cite{rfc1738,rfc3986,url_ls}~\footnote{Uniform Resource Locator}で表現される．
+インターネット上のリソースはURL\cite{rfc1738,rfc3986,url_ls}\footnote{Uniform Resource Locator}で表現される．
 WebにおいてもこのURLをもとにリソースの指定を行い，WebブラウザはURLを解釈して，Webページやその他のリソースをダウンロードする．
 RFCにおける定義をもとにURLの例を示す．
 
@@ -27,15 +27,16 @@ http://example.com/notfound
 この例では，\texttt{example.com}がhostに該当し，\texttt{notfound}がurl-pathに該当する．
 なお，``<user>:<password>@''，``:<password>''，``:<port>''，``/<url-path>''は省略可能である．
 
-URLは実装に依存して異なり，WebブラウザにおいてはRFC準拠ではない．よって厳密なURL標準は存在しないとも言える．
+URLは実装に依存して異なり，Webブラウザ関してはRFC準拠ではない．よって厳密なURL標準は存在しない．
+ただし，URL Living Standard\cite{url_ls}は，ブラウザベンダが策定に関わっているので，Webブラウザにおける事実上の標準と言える．
 
 \subsection{HTTP}
 HTTPにおいて2018年現在有効なものはHTTP/1.1とHTTP/2である．
 本研究では特にこの違いについて言及しないが，HTTP/1.1を基本として論述することとする．
 
-HTTP/1.1はRFC7230~\cite{rfc7230}，RFC7231~\cite{rfc7231}，RFC7232~\cite{rfc7232}，RFC7233~\cite{rfc7233}，RFC7234~\cite{rfc7234}，RFC7235~\cite{rfc7235}で定義されているアプリケーション層のプロトコルである．HTMLやXMLによって記述されたハイパーテキストの転送を目的に仕様策定されたが，画像や音声などのバイナリ形式のデータの転送も可能である．HTTPはリクエストレスポンス型のプロトコルであるため，HTTPによる通信はクライアントであるWebブラウザが送信するHTTPリクエストと，その応答としてWebサーバが返すHTTPレスポンスの組からなる．
+HTTP/1.1はRFC7230\cite{rfc7230}，RFC7231\cite{rfc7231}，RFC7232\cite{rfc7232}，RFC7233\cite{rfc7233}，RFC7234\cite{rfc7234}，RFC7235\cite{rfc7235}で定義されているアプリケーション層のプロトコルである．HTMLやXMLによって記述されたハイパーテキストの転送を目的に仕様策定されたが，画像や音声などのバイナリ形式のデータの転送も可能である．HTTPはリクエストレスポンス型のプロトコルであるため，HTTPによる通信はクライアントであるWebブラウザが送信するHTTPリクエストと，その応答としてWebサーバが返すHTTPレスポンスの組からなる．
 
-なお，HTTP/2に関してはRFC7540~\cite{rfc7540}にて定義されている．
+なお，HTTP/2に関してはRFC7540\cite{rfc7540}にて定義されている．
 \subsubsection{HTTPリクエスト}
 HTTPリクエストは以下の順序で構成される．各要素は改行コード（\texttt{CRLF}）で区切られている．
 \begin{enumerate}
@@ -58,8 +59,10 @@ HTTPレスポンスの例をコード~\ref{cd-http_res}に示す．1行目はリ
 \lstinputlisting[caption=HTTPレスポンス（メッセージボディ以外を抜粋）,label=cd-http_res]{code/http_res.txt}
 ステータスラインはHTTPバージョン，ステータスコードおよびテキストフレーズから構成される．ヘッダフィールドは複数のヘッダ名とヘッダ値の組から構成される．Webサーバはステータスコードによりリクエストの結果を通知する．ステータスコードは3桁の数字からなり，100番台は情報，200番台は成功，300番台はリダイレクト，400番台はクライアントエラー，500番台はサーバエラーを表す．
 \subsubsection{HTTP Cookie}
-HTTPクッキーはWebでステートフルな通信を確立することを可能とした技術である．
-HTTPはステートレスなプロトコルであり，Webサーバは複数のリクエストをまたいだ情報や状態の保持を行うことができない．しかし，Webの発展に伴い，ショッピングサイトや契約した利用者のみにサービスを提供するようなセッション管理を行うニーズが発生した．そこで，セッション管理を実現するための仕組みとして，HTTPクッキーが[14] ．HTTPクッキーは現在，RFC6265[15] として標準化されている． 
+HTTP CookieはWebでステートフルな通信を確立することを可能とした技術である．
+HTTPはステートレスなプロトコルであり，Webサーバは複数のリクエストをまたいだ情報や状態の保持を行うことができない．
+しかし，Webの発展に伴い，ショッピングサイトや契約した利用者のみにサービスを提供するようなセッション管理を行うニーズが発生した．
+そこで，セッション管理を実現するための仕組みとして，HTTP CookieがRFC6265\cite{rfc6265}にて標準化された．
 
 HTTP Cookieを利用することにより，WebサーバはWebブラウザにデータを保存させ，そのデータを次回以降のHTTPリクエストに含めさせることができる．HTTP Cookieはこのような仕組みで保存したデータをさす場合もある．
 HTTP CookieはWebサーバにより発行され，Set-CookieヘッダによりWebブラウザ内にドメイン毎に保存される．
@@ -67,7 +70,7 @@ HTTP CookieはWebサーバにより発行され，Set-CookieヘッダによりWe
 Set-Cookie: foo=bar
 Set-Cookie: name=john; Expires=Wed, 01 Jun 2020 10:00:00 GMT
 \end{verbatim}
-Set-Cookieヘッダには保存するデータに加え，有効な日時（Expires属性），送信されるドメイン（Domain属性），送信されるURLの階層（Path属性），送信をHTTPSに限定するかどうか（Secure属性），JavaScriptなどからの読み込みの可否（HttpOnly属性）を指定することができる．HTTPクッキーの最大サイズは4KBであり，1ドメイン毎に最低50個（Webブラウザの実装による）のcookieを保存でき，合計で3000個のcookieを保存することができる．ただし，保存できる容量や数はWebブラウザの実装によって一部増加している．Webブラウザは保存したHTTPクッキーをCookieヘッダにより送信する．
+Set-Cookieヘッダには保存するデータに加え，有効な日時（Expires属性），送信されるドメイン（Domain属性），送信されるURLの階層（Path属性），送信をHTTPSに限定するかどうか（Secure属性），JavaScriptなどからの読み込みの可否（HttpOnly属性）を指定することができる．HTTP Cookieの最大サイズは4KBであり，1ドメイン毎に最低50個（Webブラウザの実装による）のcookieを保存でき，合計で3000個のcookieを保存することができる．ただし，保存できる容量や数はWebブラウザの実装によって一部増加している．Webブラウザは保存したHTTP CookieをCookieヘッダにより送信する．
 \begin{verbatim}
 Cookie: foo=bar; name=john
 \end{verbatim}
@@ -78,59 +81,74 @@ Cookie: foo=bar; name=john
 ブラウザは利用者の操作によりHTTP通信を行い，リソースを取得し，描画を行う．
 ブラウザの主な構成要素を表~\ref{tb-browser}に示す．
 \input{table/browser}
-キャッシュやHTTPクッキーなどのデータストレージに保存されたデータは，ブラウザの機能により削除することができる． 
+キャッシュやHTTP Cookieなどのデータストレージに保存されたデータは，ブラウザの機能により削除することができる．
 また，多くのブラウザにはプラグインと呼ばれる，ブラウザの機能を拡張するためのプログラムをダウンロードし組み込むことができる．
 
-StatCounter~\footnote{StatCounterはWebトラフィックの解析を専門に行う企業．月間およそ100億ページビューから統計を算出している．\url{http://gs.statcounter.com}}によると，デスクトップに限定した場合人気のあるブラウザは，Chrome，Firefox，IE，Safari，Edgeである．
+StatCounter\footnote{StatCounterはWebトラフィックの解析を専門に行う企業．月間およそ100億ページビューから統計を算出している．\url{http://gs.statcounter.com}}によると，デスクトップに限定した場合人気のあるブラウザは，Chrome，Firefox，IE，Safari，Edgeである．
 以降，これらのデスクトップに限定した場合の人気のあるブラウザをメジャーブラウザと呼ぶこととする．
 メジャーブラウザに関する違いを表~\ref{tb-browser_family}にまとめた．
 \input{table/browser_family}
 これらのブラウザはほぼ同様の機能を備えているが，レンダリングエンジンやJavaScriptエンジンが異なる．
 ブラウザにはいくつかの種類があることを示したが，このブラウザの種類を以降は，ブラウザファミリと呼ぶこととする．
 \subsubsection{HTML}
-HTML~\footnote{HyperText Markup Language}はHyperTextを記述する言語仕様である．HyperTextとは，ハイパーリンクの機能を持ったドキュメントである．ハイパーリンクはあるドキュメントが別のドキュメントを単方向リンクするものである．これを発展してWebが誕生したといった背景もある．
+HTML\footnote{HyperText Markup Language}はHyperTextを記述する言語仕様である．HyperTextとは，ハイパーリンクの機能を持ったドキュメントである．ハイパーリンクはあるドキュメントが別のドキュメントを単方向リンクするものである．これを発展してWebが誕生したといった背景もある．
 
-HTMLにはいくつかのバージョンがあるが，W3Cで勧告されている2018年現在最新の仕様はHTML5.2~\cite{html5_2}である．また，WHATWGでもHTMLの仕様を公開している~\cite{html_ls}．両者はそれぞれ仕様を策定しているが，近年ではWHATWGにW3Cが追随している模様で，大きく差があるわけではない．
+HTMLにはいくつかのバージョンがあるが，W3C\footnote{1994年に設立されたWebで使用される各種技術の仕様化団体．\url{https://www.w3.org/}}で勧告されている2018年現在最新の仕様はHTML5.2\cite{html5_2}である．
+また，WHATWG\footnote{W3Cに反発して2004年に設立されたWeb技術開発に関するコミュニティ．主要ブラウザベンダであるMozilla, Apple, Microsoft, Googleのすべてが参加している．\url{https://whatwg.org/}}でもHTMLの仕様を公開している\cite{html_ls}．両者はそれぞれ仕様を策定しているが，近年ではWHATWGにW3Cが追随している模様で，大きく差があるわけではない．
 \subsubsection{JavaScript}
 JavaScriptはECMAによって仕様策定されたスクリプト言語である．Netscapeに招聘されたBrendan Eichらによって開発され，Netscape 2.0に搭載された．SelfとSchemeの2つのプログラミング言語の特性を受け継いでおり，オブジェクト指向でありながら，関数型言語の特性を併せ持ちかつ，Javaのような文法特性を持っている．1997年にECMA-262として標準化された．当時のECMA-262は基本的な文法に関する仕様がほとんどで簡素なものであった．その後，ブラウザの発展とともにJavaScriptエンジンも進化し，ECMA-262のエディションも更新されていった．ECMAScript 6th editionから毎年更新されることとなった．2018年1月現在では，ECMAScript 2017が公開されており，ECMAScript 2018が策定中である．仕様上はECMA-262やECMAScriptと呼ぶが，ブラウザに実装されている言語としてはJavaScriptという呼称が一般的である．以降，JavaScriptと指した場合にはECMAScriptの仕様を基にJavaScriptエンジンに実装されたプログラミング言語を指すものとする．
 
-ブラウザに実装されたJavaScriptを実行する際には，HTMLファイルに直接コードを記述するか，外部ファイルとしてHTMLファイルに読み込む方法がある．JavaScriptを用いることで，ブラウザに実装されているAPIの利用やブラウザによって解釈されたHTMLのDOM~\footnote{Document Object Model}操作などが行える．JavaScriptはブラウザに搭載されているJavaScriptエンジンによって解釈され実行される．JavaScriptエンジンの違いによって，処理速度の差や挙動の違いが生じるものがある．また，ブラウザではECMAScriptの仕様に加えて独自にAPIを追加している．このブラウザのみで利用できるAPIはW3C~\footnote{1994年に設立されたWebで使用される各種技術の仕様化団体．\url{https://www.w3.org/}}とWHATWG~\footnote{W3Cに反発して2004年に設立されたWeb技術開発に関するコミュニティ．主要ブラウザベンダであるMozilla, Apple, Microsoft, Googleのすべてが参加している．\url{https://whatwg.org/}}にて仕様が策定されている．ブラウザで利用できるAPIの例としては，ブラウザでの高機能なクライアントストレージを提供するWeb Storage API，位置情報を取得するGeolocation APIがある．
+ブラウザに実装されたJavaScriptを実行する際には，HTMLファイルに直接コードを記述するか，外部ファイルとしてHTMLファイルに読み込む方法がある．JavaScriptを用いることで，ブラウザに実装されているAPIの利用やブラウザによって解釈されたHTMLのDOM\footnote{Document Object Model}操作などが行える．JavaScriptはブラウザに搭載されているJavaScriptエンジンによって解釈され実行される．JavaScriptエンジンの違いによって，処理速度の差や挙動の違いが生じるものがある．また，ブラウザではECMAScriptの仕様に加えて独自にAPIを追加している．このブラウザのみで利用できるAPIはW3CとWHATWGにて仕様が策定されている．ブラウザで利用できるAPIの例としては，ブラウザでの高機能なクライアントストレージを提供するWeb Storage API，位置情報を取得するGeolocation APIがある．
 \subsection{サーバ}
 本説では，Webを構成する要素としてサーバサイドの技術について解説する．
 \subsubsection{Webサーバ}
 Webサーバの役割はブラウザからのリクエストを解析し，適切なコンテンツをレスポンスとすることである．
-W3Techs~\footnote{Q-Success社が提供する調査サービス． Alexa，Google，Microsoft，ipinfo.ioから情報を収集している．\url{https://w3techs.com/}}によると，Apache，Nginxが人気のあるWebサーバである．ApacheとNginxの大きな違いはその駆動方式で，マルチプロセスモデルと，イベント駆動モデルに分かれるが，Webサーバとしての機能面に関して大きな差異はない．
+W3Techs\footnote{Q-Success社が提供する調査サービス． Alexa，Google，Microsoft，ipinfo.ioから情報を収集している．\url{https://w3techs.com/}}によると，Apache，Nginxが人気のあるWebサーバである．ApacheとNginxの大きな違いはその駆動方式で，マルチプロセスモデルと，イベント駆動モデルに分かれるが，Webサーバとしての機能面に関して大きな差異はない．
 \subsubsection{PHP}
-PHPは動的にHTMLデータを生成することで動的なWebページを実現することを目的としたプログラミング言語である．2018年1月現在バージョン7.2.1が最新としてリリースされている．PHPはHTMLファイル内に記述することもできる．WebサーバはPHPで記述されたページが要求されるたびに，そのPHPスクリプトを実行し，結果をWebブラウザに送信する．PHPを用いることで，GETやPOSTメソッドにより送信される値の受け取りやセッションの処理が行える他，MySQLやSQLiteなどのデータベースを操作するための命令も用意されている．多くのライブラリが作成されており，それらの依存関係の管理にはComposer~\footnote{\url{https://getcomposer.org/}}が使われることが多い．
+PHPは動的にHTMLデータを生成することで動的なWebページを実現することを目的としたプログラミング言語である．2018年1月現在バージョン7.2.1が最新としてリリースされている．PHPはHTMLファイル内に記述することもできる．WebサーバはPHPで記述されたページが要求されるたびに，そのPHPスクリプトを実行し，結果をWebブラウザに送信する．PHPを用いることで，GETやPOSTメソッドにより送信される値の受け取りやセッションの処理が行える他，MySQLやSQLiteなどのデータベースを操作するための命令も用意されている．多くのライブラリが作成されており，それらの依存関係の管理にはComposer\footnote{\url{https://getcomposer.org/}}が使われることが多い．
 \subsubsection{Node.js}
-JavaScriptはブラウザで実行されることは先に示したが，JavaScriptエンジンがあればブラウザ環境ではなくても動作させることが可能である．2009年に登場したV8 JavaScriptエンジンはサーバサイドでも動作する．このV8 JavaScriptエンジンを使用しサーバサイドでの動作を可能としたものがNode.jsである．2018年1月現在バージョン9.5.0が最新としてリリースされている．Node.js~\footnote{ライブラリの実装にもよるが，Node.jsに限らずブラウザ環境で動作するものも公開されている．}でも多くのライブラリが作成，公開されており，パッケージ管理にはnpm~\footnote{\url{https://www.npmjs.com/}}が利用される．なお，Node.jsは当初サーバサイドで動作することが想定されていたが，アプリケーションの作成でも利用される．代表的なアプリケーション用の開発環境としてはElectron~\footnote{\url{https://electronjs.org/}}が挙げられる．
+JavaScriptはブラウザで実行されることは先に示したが，JavaScriptエンジンがあればブラウザ環境ではなくても動作させることが可能である．2009年に登場したV8 JavaScriptエンジンはサーバサイドでも動作する．このV8 JavaScriptエンジンを使用しサーバサイドでの動作を可能としたものがNode.jsである．2018年1月現在バージョン9.5.0が最新としてリリースされている．Node.js\footnote{ライブラリの実装にもよるが，Node.jsに限らずブラウザ環境で動作するものも公開されている．}でも多くのライブラリが作成，公開されており，パッケージ管理にはnpm\footnote{\url{https://www.npmjs.com/}}が利用される．なお，Node.jsは当初サーバサイドで動作することが想定されていたが，アプリケーションの作成でも利用される．代表的なアプリケーション用の開発環境としてはElectron\footnote{\url{https://electronjs.org/}}が挙げられる．
 \subsection{CPU}
 本節では本研究で対象となるCPUの機能とCPUファミリについて紹介する．
 \subsubsection{SSE2}
-SSE~\footnote{Streaming SIMD Extensions}は，Intel Pentium IIIプロセッサで1999年に導入されたIntel x86アーキテクチャへのSIMD命令セットの拡張である． SSEには70個の命令が含まれている．SSEが搭載されたCPUは，4つの32ビットレジスタを持ち，単精度浮動小数点データのみをサポートしている．レジスタを64ビットに拡張したSSE2は，2001年にIntel Pentium IVプロセッサで導入された．SSE2では倍精度浮動小数点データをサポートしている．このため，SSEとSSE2のプロセッサでは同じ計算であっても，計算結果に差異が生じる．
+SSE\footnote{Streaming SIMD Extensions}は，Intel Pentium IIIプロセッサで1999年に導入されたIntel x86アーキテクチャへのSIMD命令セットの拡張である． SSEには70個の命令が含まれている．SSEが搭載されたCPUは，4つの32ビットレジスタを持ち，単精度浮動小数点データのみをサポートしている．レジスタを64ビットに拡張したSSE2は，2001年にIntel Pentium IVプロセッサで導入された．SSE2では倍精度浮動小数点データをサポートしている．このため，SSEとSSE2のプロセッサでは同じ計算であっても，計算結果に差異が生じる．
 ただし，SSE3とSSE4.xはSSE2と互換性があるので，計算結果は同様である．
+
 \subsubsection{HTT}
-HTT~\footnote{Hyper-Threading Technology}は2002年にIntel Xeonプロセッサへ導入された．
-複数の独立したタスクを一度に実行するSMT~\footnote{Simultaneous Multithreading}のIntelにおける実装である．
+HTT\footnote{Hyper-Threading Technology}は2002年にIntel Xeonプロセッサへ導入された．
+複数の独立したタスクを一度に実行するSMT\footnote{Simultaneous Multithreading}のIntelにおける実装である．
 後に，Pentium 4，Itanium，Atom，Core iシリーズに導入された．HTTを使用すると，1つの物理的なコアが2つの論理プロセッサとしてOSに表示される．OSは1つの物理コアを利用して2つのプロセスを一度にスケジューリングできる．ただし物理コアの場合とは異なり，論理コアは浮動小数点演算ユニットと整数演算ユニットを共有するため，1つのプロセスが片方の演算ユニットを占有するともう1つのプロセスはその演算ユニットでの演算が行えない．つまり2つの論理コアで浮動小数点データのみを計算する場合は1つの物理コアのように機能する．
 例えば，モンテカルロ法による円周率$\pi$の算出には浮動小数点と整数の両方のデータを複数回計算する．
 HTTが有効なCPUにおいてこの計算を実施した場合，プロセスの処理を遅れることから識別が可能となる．
+
 \subsubsection{マルチコア}
 マルチコアプロセッサは2つ以上の物理演算ユニットを搭載している．キャッシュやバスを共有するので単一のCPUで並列処理を実行でき，各コアはほとんど競合を起こさずに同時に計算できる．HTTとは異なり，マルチコアプロセッサはコア数に応じて同時処理を行うスレッドを実行できる．
+
 \subsubsection{Turbo Boost}
-Turbo Boost~\footnote{Intel Turbo Boost Technology}はCPUの動作周波数を上げることでパフォーマンスを向上させる機能である．Intelが製造するCPUに実装されている．Turbo BoostはCPUの動作周波数を常に上げるのではなく，処理の内容や使用するCPUコア数，CPUの温度などの要因によって動的に決定する．また，負荷の高い処理を実行するときや複数のCPUコアを同時に使用するときはTurbo Boostが効果的に機能しない．
+Turbo Boost\footnote{Intel Turbo Boost Technology}はCPUの動作周波数を上げることでパフォーマンスを向上させる機能である．
+Intelが製造するCPUに実装されている．
+Turbo BoostはCPUの動作周波数を常に上げるのではなく，処理の内容や使用するCPUコア数，CPUの温度などの要因によって動的に決定する．
+また，負荷の高い処理を実行するときや複数のCPUコアを同時に使用するときにはTurbo Boostは効果的に機能しない．
 
-なお，Turbo Boostには実装された世代に応じてIntel Turbo Boost TechnologyとIntel Turbo Boost Technology 2.0の2つがあるが，提案手法が対象とするのはIntel Turbo Boost Technology 2.0のみである．以降，Turbo Boostと表記した場合はIntel Turbo Boost Technology 2.0を指すものとする．
+なお，Turbo Boostは実装された世代に応じてIntel Turbo Boost TechnologyとIntel Turbo Boost Technology 2.0の2つがあるが，本研究でははIntel Turbo Boost Technology 2.0を対象とする．
+以降，Turbo Boostと表記した場合はIntel Turbo Boost Technology 2.0を指すものとする．
+
 \subsubsection{AES-NI}
-AES-NI~\footnote{Advanced Encryption Standard New Instructions}はIntelおよびAMDのx86アーキテクチャにおける拡張命令セットであり，2010年のIntel Coreプロセッサファミリで導入された．この命令は暗号アルゴリズムAESによる高速で安全なデータの暗号化と復号が可能とする．AES-NIは，AESのハードウェアアクセラレーションを提供する6つの命令で構成されている．4つの命令はAESによる暗号化と復号をサポートし，他の2つの命令はAESによる鍵拡張をサポートする．Crypto++~\footnote{\url{http://www.cryptopp.com/}}を用いた性能解析では，Pentium 4上でAES/GCMを使用した際に，1バイトあたり約28.0サイクルから1バイトあたり3.5サイクルまで暗号操作によるクロック数が減少する．Web Cryptography APIはブラウザが稼働する端末にAES-Nが有効なCPUが搭載されている場合に限り，AES-NIによる暗号化と復号を行う．CPUがAES-NIをサポートする場合，AES-NIがサポートされていないCPUよりも高速に暗号化および復号の計算を行うことができる．
+AES-NI\footnote{Advanced Encryption Standard New Instructions}はIntelおよびAMDのx86アーキテクチャにおける拡張命令セットであり，2010年のIntel Coreプロセッサファミリで導入された．
+この命令は暗号アルゴリズムAESによる高速で安全なデータの暗号化と復号が可能とする．
+AES-NIは，AESのハードウェアアクセラレーションを提供する6つの命令で構成されている．
+4つの命令はAESによる暗号化と復号をサポートし，他の2つの命令はAESによる鍵拡張をサポートする．
+Crypto++\footnote{\url{http://www.cryptopp.com/}}を用いた性能解析では，Pentium 4上でAES/GCMを使用した際に，1バイトあたり約28.0サイクルから1バイトあたり3.5サイクルまで暗号操作によるクロック数が減少する．Web Cryptography API\cite{web_crypto}はブラウザが稼働する端末にAES-Nが有効なCPUが搭載されている場合に限り，AES-NIによる暗号化と復号を行う．
+CPUがAES-NIをサポートする場合，AES-NIがサポートされていないCPUよりも高速に暗号化および復号の計算を行うことができる．
 
-メジャーブラウザでは，Web Cryptography API~\cite{web_crypto}を用いたAESによる暗号化と復号処理においてAES-NIが機能するように実装されている．
+メジャーブラウザでは，Web Cryptography APIを用いたAESによる暗号化と復号処理においてAES-NIが機能するように実装されている．
+
 \subsubsection{CPUファミリ}
 \ref{tb-cpu}にIntelが提供するCPUについてまとめた．近年はマルチコア化に加えてSSE，HTT，AES-NIといった拡張機能の搭載が増加している．ほかにもTurbo Boost，Advanced Vector eXtensions（AVX），およびVT-x，VT-d，VT-cなどの仮想化技術も同様に増加している．
 \subsection{SMBIOS}
 Intelが初期のCPUとしてIntel 8086を発表して以来，これに後方互換をもたせた命令セットを使用してCPUの製造を行っている．これをx86アーキテクチャと呼び，その他のCPUベンダとしてAMDもこれと互換があるアーキテクチャを製造している．
 
-SMBIOS~\footnote{System Management BIOS．BIOSはOSが起動する前に起動し，周辺デバイスの管理や制御を行う．}は，x86アーキテクチャにおいて，マザーボード及び，システムベンダが，製品に関する管理情報をどのように表示するのかについての仕様である~\cite{smbios_spec}．
+SMBIOS\footnote{System Management BIOS．BIOSはOSが起動する前に起動し，周辺デバイスの管理や制御を行う．}は，x86アーキテクチャにおいて，マザーボード及び，システムベンダが，製品に関する管理情報をどのように表示するのかについての仕様である\cite{smbios_spec}．
 BIOSにおけるデータ構造について記載されており，どのメモリアドレスにどのようなデータが格納されているか記述してある．
 各データはTypeという識別子でどのような内容がその構造に含まれるのかを識別している．
 表~\ref{tb-smbios}にSMBIOSで定義されたデータ構造の中で，本研究の対象となるもののみを抽出して示す．
@@ -144,9 +162,9 @@ CPUに関する情報はSMBIOSのType 4にある．
 コード~\ref{cd-eg_smbios_type4}によると，CPUのモデルナンバーが\texttt{Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz}であること，コア数，スレッド数がそれぞれ2，4であることがわかる．
 CPUのモデルナンバーを得ることで，端末がどのようなCPU命令に対応しているかも把握することが可能である．
 
-PCIe~\footnote{PCI Express．シリアル接続される拡張インターフェース．ビデオカードやサウンドカードを接続することが多い．}に関する情報はSMBIOSのType 9にある．
+PCIe\footnote{PCI Express．シリアル接続される拡張インターフェース．ビデオカードやサウンドカードを接続することが多い．}に関する情報はSMBIOSのType 9にある．
 GPUは多くがパフォーマンスを最大限発揮するためにPCIe x16に接続される．
-一般に，ノートパソコンなどで拡張デバイスを接続する際はExpressCard~\cite{express_card}が利用されるので，Type 9のデータが存在することは稀である．
+一般に，ノートパソコンなどで拡張デバイスを接続する際はExpressCard\cite{express_card}が利用されるので，Type 9のデータが存在することは稀である．
 コード~\ref{cd-smbios_type9}に，GPUがPCIeで接続されている端末において採取したType 9の出力結果の例を示す．
 
 \lstinputlisting[caption=SMBIOS Type 9,label=cd-smbios_type9]{code/smbios_type9.txt}
@@ -162,9 +180,9 @@ Type 9のデータはPCIe x1など他にも存在するが，前述した通りG
 この結果からはメモリサイズが4096~MB，クロック周波数が1867~MHzであることがわかる．
 メモリを端末に複数搭載できる場合，端末にあるメモリスロットの数だけType 17のデータが存在する．
 また，メモリが接続されていないスロットのデータに関してはSizeが0となる．
-\subsection{統計解析}
+
 \subsection{機械学習}
-本節では，典型的な機械学習手法として，SVM~\footnote{Support Vector Machine}を紹介する．
+本節では，典型的な機械学習手法として，SVM\footnote{Support Vector Machine}を紹介する．
 SVMは1995年に，AT\&T社のV.Vapnikによって提案された2クラスの分類を行うための教師有り学習手法である．
 与えられたデータから，クラスの境界面を決定することによって，分類するための教師データを生成する．
 境界面は，マージン最大化によって決定され，クラスの境界付近に存在するデータから，可能な限り離れた位置に境界面を設置される．
@@ -180,6 +198,6 @@ SVMは1995年に，AT\&T社のV.Vapnikによって提案された2クラスの�
 また，入力値をそのまま扱うと境界面をとることができない場合がある．
 そのような場合にも対応できるように，入力値空間から高次元空間へ写像をとりその高次元空間で境界面を作成する．
 
-基本的には2クラス分類ではあるが，多クラス分類に対応したライブラリとしてLibSVM~\footnote{\url{https://www.csie.ntu.edu.tw/~cjlin/libsvm/}}や，SVM Light~\footnote{\url{http://svmlight.joachims.org/}}がある．
+基本的には2クラス分類ではあるが，多クラス分類に対応したライブラリとしてLibSVM\footnote{\url{https://www.csie.ntu.edu.tw/~cjlin/libsvm/}}や，SVM Light\footnote{\url{http://svmlight.joachims.org/}}がある．
 多クラスのSVMには，one-against-all方式と，pairwise方式がある．one-against-all方式では，分類データがそのクラスに属しているか否かの判定を各クラスに対して行う．学習にかかる時間は長くなるが分類性能は比較的高いとされている．
 pairwise方式では複数あるクラスの内2つを選び，どちらのクラスに近いかをトーナメント方式で判定する．学習にかかる時間は比較的短いが，one-against-all方式に比べて精度は下がるとされている．
